@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class CameraControls : MonoBehaviour
 {
     private Vector2 _delta;
+    //TODO change movement so it rotates around the sun as the WASD movement feels clunky
 
     private bool _isRotating;
     private float X;
