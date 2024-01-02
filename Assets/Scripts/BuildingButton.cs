@@ -14,11 +14,20 @@ public class BuildingButton : MonoBehaviour
     private bool tempTurretPlaced;
     private GameObject tempTurret;
 
+    //hydrogen generator
+    public GameObject hydroGen;
+    private bool hydroGenPlacing;
+    private bool tempHydroGenPlaced;
+    private GameObject tempHydroGen;
+
     //mouse pos
     public Vector3 screenPosition;
     public Vector3 worldPosition;
     public Plane plane = new Plane(Vector3.down, 0);
     public LayerMask hitLayers;
+
+    //can place
+    private bool canPlace;
     
 
     // Start is called before the first frame update
@@ -28,6 +37,8 @@ public class BuildingButton : MonoBehaviour
 
         turretPlacing = false;
         tempTurretPlaced = false;
+        hydroGenPlacing = false;
+        tempHydroGenPlaced = false;
     }
 
     // Update is called once per frame
@@ -44,17 +55,14 @@ public class BuildingButton : MonoBehaviour
         {
             if(!tempTurretPlaced)
             {
-                tempTurret = createBuilding(turret);
-                colorGreen(tempTurret);
+                tempTurret = createTempBuilding(turret);
                 tempTurretPlaced = true;
             } else
             {
-               // Vector3 normal = (worldPosition - centreOfSphere).normalized;
-               // Quaternion rotation = Quaternion.LookRotation(normal);
-                tempTurret.transform.position = worldPosition;
-                tempTurret.transform.LookAt(centreOfSphere);
-                tempTurret.transform.rotation *= Quaternion.Euler(-90, 0, 0);
-                if (Input.GetMouseButtonDown(0))
+                // Vector3 normal = (worldPosition - centreOfSphere).normalized;
+                // Quaternion rotation = Quaternion.LookRotation(normal);
+                moveTempBuilding(tempTurret);
+                if (Input.GetMouseButtonDown(0) && canPlace)
                 {
                     //mouse has been clicked, place the tower!
                     Instantiate(turret, tempTurret.transform.position, tempTurret.transform.rotation);
@@ -63,6 +71,26 @@ public class BuildingButton : MonoBehaviour
                     tempTurretPlaced = false;
                 }
             }
+            canPlace = tempTurret.GetComponent<BuildingCollision>().canPlace;
+        } else if (hydroGenPlacing)
+        {
+            if (!tempHydroGenPlaced)
+            {
+                tempHydroGen = createTempBuilding(hydroGen);
+                tempHydroGenPlaced = true;
+            }
+            else
+            {
+                moveTempBuilding(tempHydroGen);
+                if (Input.GetMouseButtonDown(0) && canPlace)
+                {
+                    Instantiate(hydroGen, tempHydroGen.transform.position, tempHydroGen.transform.rotation);
+                    Destroy(tempHydroGen);
+                    hydroGenPlacing = false;
+                    tempHydroGenPlaced = false;
+                }
+            }
+            canPlace = tempHydroGen.GetComponent<BuildingCollision>().canPlace;
         }
     }
 
@@ -71,6 +99,12 @@ public class BuildingButton : MonoBehaviour
     {
         turretPlacing = true;
     }
+
+    public void onHydroGenClick()
+    {
+        hydroGenPlacing = true;
+    }
+
     private GameObject createBuilding(GameObject building)
     {
         //TODO get mouse pos
@@ -79,22 +113,17 @@ public class BuildingButton : MonoBehaviour
         return temp;
         
     }
-    private void colorGreen(GameObject building)
+    private GameObject createTempBuilding (GameObject building)
     {
-        Transform parent = building.transform;
-        foreach(Transform child in parent)
-        {
-            Renderer tempRenderer = child.GetComponent<Renderer>();
-            tempRenderer.material.color = Color.green;
-        }
+        GameObject temp = createBuilding(building);
+        temp.tag = "Fake";
+        canPlace = temp.GetComponent<BuildingCollision>().canPlace;
+        return temp;
     }
-    private void colorRed(GameObject building)
+    private void moveTempBuilding(GameObject building)
     {
-        Transform parent = building.transform;
-        foreach (Transform child in parent)
-        {
-            Renderer tempRenderer = child.GetComponent<Renderer>();
-            tempRenderer.material.color = Color.red;
-        }
+        building.transform.position = worldPosition;
+        building.transform.LookAt(centreOfSphere);
+        building.transform.rotation *= Quaternion.Euler(-90, 0, 0);
     }
 }
