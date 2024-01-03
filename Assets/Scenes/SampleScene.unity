@@ -631,8 +631,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -15.3, z: -214.3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -691,10 +691,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef074adbfc3db4b6db17f6e883925c7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 02a34be80ec5146809c70bc518704647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 2
+  zoomChange: 200
+  smoothChange: 1.5
+  minSize: 10
+  maxSize: 60
 --- !u!1 &1656195724
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +893,7 @@ GameObject:
   - component: {fileID: 2047409672}
   - component: {fileID: 2047409671}
   - component: {fileID: 2047409673}
+  - component: {fileID: 2047409674}
   m_Layer: 0
   m_Name: MovementHolder
   m_TagString: Untagged
@@ -919,7 +923,7 @@ Transform:
   m_GameObject: {fileID: 2047409670}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5515823, y: 82.17354, z: 144.41907}
+  m_LocalPosition: {x: 0, y: 64.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -953,7 +957,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 963194230}
+      - m_Target: {fileID: 2047409674}
         m_TargetAssemblyTypeName: CameraControls, Assembly-CSharp
         m_MethodName: OnRotate
         m_Mode: 0
@@ -972,6 +976,19 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2047409674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047409670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef074adbfc3db4b6db17f6e883925c7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 1000
 --- !u!1 &2055915464
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,20 +5,11 @@ using UnityEngine.InputSystem;
 
 public class CameraControls : MonoBehaviour
 {
-    private Vector2 _delta;
     //TODO change movement so it rotates around the sun as the WASD movement feels clunky
 
     private bool _isRotating;
-    private float X;
-    private float Y;
 
-    [SerializeField] private float rotationSpeed = 3f;
-
-    private void Awake()
-    {
-        X = transform.rotation.eulerAngles.x;
-        Y = transform.rotation.eulerAngles.y;
-    }
+    [SerializeField] private float rotationSpeed = 1000f;
 
     public void OnRotate(InputAction.CallbackContext ctc)
     {
@@ -29,10 +20,10 @@ public class CameraControls : MonoBehaviour
     {
         if(_isRotating)
         {
-            transform.Rotate(new Vector3(Input.GetAxis("Mouse Y") * rotationSpeed, -Input.GetAxis("Mouse X") * rotationSpeed, 0));
-            X = transform.rotation.eulerAngles.x;
-            Y = transform.rotation.eulerAngles.y;
-            transform.rotation = Quaternion.Euler(X, Y, 0);
+            float verticalInput = -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
+            float horizontalInput = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+            transform.Rotate(Vector3.right, verticalInput);
+            transform.Rotate(Vector3.up, horizontalInput, Space.World);
         }
     }
 }
