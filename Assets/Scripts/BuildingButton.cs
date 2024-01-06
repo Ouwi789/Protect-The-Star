@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BuildingButton : MonoBehaviour
 {
+    //cancel text
+    public GameObject cancelText;
     //sun coords for placement
     public GameObject sun;
     private Vector3 centreOfSphere;
@@ -19,6 +21,12 @@ public class BuildingButton : MonoBehaviour
     private bool hydroGenPlacing;
     private bool tempHydroGenPlaced;
     private GameObject tempHydroGen;
+
+    //helium generator
+    public GameObject heliumGen;
+    private bool heliumGenPlacing;
+    private bool tempHeliumGenPlaced;
+    private GameObject tempHeliumGen;
 
     //mouse pos
     public Vector3 screenPosition;
@@ -39,6 +47,8 @@ public class BuildingButton : MonoBehaviour
         tempTurretPlaced = false;
         hydroGenPlacing = false;
         tempHydroGenPlaced = false;
+        heliumGenPlacing = false;
+        tempHeliumGenPlaced = false;
     }
 
     // Update is called once per frame
@@ -62,9 +72,18 @@ public class BuildingButton : MonoBehaviour
                 // Vector3 normal = (worldPosition - centreOfSphere).normalized;
                 // Quaternion rotation = Quaternion.LookRotation(normal);
                 moveTempBuilding(tempTurret);
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    //cancel placement
+                    cancelText.SetActive(false);
+                    Destroy(tempTurret);
+                    turretPlacing = false;
+                    tempTurretPlaced = false;
+                }
                 if (Input.GetMouseButtonDown(0) && canPlace)
                 {
                     //mouse has been clicked, place the tower!
+                    cancelText.SetActive(false);
                     Instantiate(turret, tempTurret.transform.position, tempTurret.transform.rotation);
                     Destroy(tempTurret);
                     turretPlacing = false;
@@ -82,8 +101,16 @@ public class BuildingButton : MonoBehaviour
             else
             {
                 moveTempBuilding(tempHydroGen);
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    cancelText.SetActive(false);
+                    Destroy(tempHydroGen);
+                    hydroGenPlacing = false;
+                    tempHydroGenPlaced = false;
+                }
                 if (Input.GetMouseButtonDown(0) && canPlace)
                 {
+                    cancelText.SetActive(false);
                     Instantiate(hydroGen, tempHydroGen.transform.position, tempHydroGen.transform.rotation);
                     Destroy(tempHydroGen);
                     hydroGenPlacing = false;
@@ -92,17 +119,67 @@ public class BuildingButton : MonoBehaviour
             }
             canPlace = tempHydroGen.GetComponent<BuildingCollision>().canPlace;
         }
+        else if (heliumGenPlacing)
+        {
+            if (!tempHeliumGenPlaced)
+            {
+                tempHeliumGen = createTempBuilding(heliumGen);
+                tempHeliumGenPlaced = true;
+            }
+            else
+            {
+                moveTempBuilding(tempHeliumGen);
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    cancelText.SetActive(false);
+                    Destroy(tempHeliumGen);
+                    heliumGenPlacing = false;
+                    tempHeliumGenPlaced = false;
+                }
+                if (Input.GetMouseButtonDown(0) && canPlace)
+                {
+                    cancelText.SetActive(false);
+                    Instantiate(heliumGen, tempHeliumGen.transform.position, tempHeliumGen.transform.rotation);
+                    Destroy(tempHeliumGen);
+                    heliumGenPlacing = false;
+                    tempHeliumGenPlaced = false;
+                }
+            }
+            canPlace = tempHeliumGen.GetComponent<BuildingCollision>().canPlace;
+        }
     }
 
 
     public void onTurretClick()
     {
-        turretPlacing = true;
+        if (checkCanPlace())
+        {
+            cancelText.SetActive(true);
+            turretPlacing = true;
+        }
     }
 
     public void onHydroGenClick()
     {
-        hydroGenPlacing = true;
+        if (checkCanPlace())
+        {
+            cancelText.SetActive(true);
+            hydroGenPlacing = true;
+        }
+    }
+
+    public void onHeliumGenClick()
+    {
+        if (checkCanPlace())
+        {
+            cancelText.SetActive(true);
+            heliumGenPlacing = true;
+        }
+    }
+
+    private bool checkCanPlace()
+    {
+        return !(turretPlacing || hydroGenPlacing || heliumGenPlacing);
     }
 
     private GameObject createBuilding(GameObject building)

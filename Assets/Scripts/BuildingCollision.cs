@@ -27,7 +27,7 @@ public class BuildingCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isFake)
+        if (isFake && other.tag != "Sun")
         {
             colorRed(gameObject);
             canPlace = false;
