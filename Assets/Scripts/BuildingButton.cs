@@ -84,7 +84,8 @@ public class BuildingButton : MonoBehaviour
                 {
                     //mouse has been clicked, place the tower!
                     cancelText.SetActive(false);
-                    Instantiate(turret, tempTurret.transform.position, tempTurret.transform.rotation);
+                    GameObject temp = Instantiate(turret, tempTurret.transform.position, tempTurret.transform.rotation);
+                    temp.tag = "Building";
                     Destroy(tempTurret);
                     turretPlacing = false;
                     tempTurretPlaced = false;
@@ -111,7 +112,8 @@ public class BuildingButton : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && canPlace)
                 {
                     cancelText.SetActive(false);
-                    Instantiate(hydroGen, tempHydroGen.transform.position, tempHydroGen.transform.rotation);
+                    GameObject temp = Instantiate(hydroGen, tempHydroGen.transform.position, tempHydroGen.transform.rotation);
+                    temp.tag = "Building";
                     Destroy(tempHydroGen);
                     hydroGenPlacing = false;
                     tempHydroGenPlaced = false;
@@ -139,7 +141,8 @@ public class BuildingButton : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && canPlace)
                 {
                     cancelText.SetActive(false);
-                    Instantiate(heliumGen, tempHeliumGen.transform.position, tempHeliumGen.transform.rotation);
+                    GameObject temp = Instantiate(heliumGen, tempHeliumGen.transform.position, tempHeliumGen.transform.rotation);
+                    temp.tag = "Building";
                     Destroy(tempHeliumGen);
                     heliumGenPlacing = false;
                     tempHeliumGenPlaced = false;

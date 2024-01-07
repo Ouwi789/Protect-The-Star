@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sun
   - Fake
+  - Building
   layers:
   - Default
   - TransparentFX
