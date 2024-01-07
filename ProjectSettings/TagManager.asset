@@ -7,6 +7,8 @@ TagManager:
   - Sun
   - Fake
   - Building
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX

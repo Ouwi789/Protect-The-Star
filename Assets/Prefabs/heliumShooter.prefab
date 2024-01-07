@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 376330703505841873}
   - component: {fileID: 3389227816523307006}
   - component: {fileID: -2183080049602165305}
+  - component: {fileID: 4806379715731673004}
   m_Layer: 0
   m_Name: heliumShooter
   m_TagString: Untagged
@@ -284,6 +285,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlace: 0
+--- !u!114 &4806379715731673004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287993245133193887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa0923dccbb9493e99aa99a1944cd95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 6209152903066149885, guid: cf1b35b822e3447dea43ee599770c756, type: 3}
+  reloadTime: 6
 --- !u!1 &4625784001232714642
 GameObject:
   m_ObjectHideFlags: 0

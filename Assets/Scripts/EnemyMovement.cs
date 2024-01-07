@@ -21,7 +21,6 @@ public class EnemyMovement : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("GameController");
         sun = GameObject.FindGameObjectWithTag("Sun");
         targetPosition = sun.transform.position;
-        print(targetPosition);
         healthScript = gameController.GetComponent<GameState>();
     }
 
@@ -40,6 +39,14 @@ public class EnemyMovement : MonoBehaviour
         {
             healthScript.setHealth(healthScript.getHealth() - damage);
             Destroy(gameObject);
+        } else
+        {
+            //its a bullet
+            Destroy(gameObject);
         }
+    }
+    public Transform getPosition()
+    {
+        return transform;
     }
 }
