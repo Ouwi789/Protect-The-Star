@@ -1896,6 +1896,7 @@ GameObject:
   - component: {fileID: 1685247826}
   - component: {fileID: 1685247827}
   - component: {fileID: 1685247828}
+  - component: {fileID: 1685247829}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1986,6 +1987,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultEnemy: {fileID: 7350859683941497721, guid: 4798140e358be474381c56485415f363, type: 3}
   timeToSpawn: 4
+--- !u!114 &1685247829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685247823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646db0569961f4f7ba2efa510d69eb8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenPosition: {x: 0, y: 0, z: 0}
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &2047409670
 GameObject:
   m_ObjectHideFlags: 0

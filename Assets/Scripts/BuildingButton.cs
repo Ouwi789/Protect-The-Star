@@ -31,7 +31,6 @@ public class BuildingButton : MonoBehaviour
     //mouse pos
     public Vector3 screenPosition;
     public Vector3 worldPosition;
-    public Plane plane = new Plane(Vector3.down, 0);
     public LayerMask hitLayers;
 
     //can place

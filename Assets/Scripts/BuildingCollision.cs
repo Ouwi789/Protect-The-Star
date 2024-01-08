@@ -6,7 +6,10 @@ public class BuildingCollision : MonoBehaviour
 {
     bool isFake;
     public bool canPlace;
-
+    public Material sphereColor;
+    public float range;
+    public GameObject sphere;
+    bool spherePlaced = false;
 
     private void Awake()
     {
@@ -59,5 +62,26 @@ public class BuildingCollision : MonoBehaviour
             Renderer tempRenderer = child.GetComponent<Renderer>();
             tempRenderer.material.color = Color.red;
         }
+    }
+
+    public void CreateSphere()
+    {
+        if (spherePlaced)
+        {
+            sphere.SetActive(true);
+        } else
+        {
+            sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            Renderer renderer = sphere.GetComponent<Renderer>();
+            sphere.layer = 1;
+            sphere.transform.position = transform.position;
+            renderer.material = sphereColor;
+            sphere.transform.localScale = new Vector3(range * 2, range * 2, range * 2);
+            spherePlaced = true;
+        }
+    }
+    public void DeleteSphere()
+    {
+        sphere.SetActive(false);
     }
 }

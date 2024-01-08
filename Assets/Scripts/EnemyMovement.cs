@@ -39,9 +39,8 @@ public class EnemyMovement : MonoBehaviour
         {
             healthScript.setHealth(healthScript.getHealth() - damage);
             Destroy(gameObject);
-        } else
+        } else if (other.tag == "Bullet")
         {
-            //its a bullet
             Destroy(gameObject);
         }
     }
