@@ -34,7 +34,7 @@ public class HeliumGenProduction : MonoBehaviour
             counter += Time.deltaTime;
             if (counter >= generateTime)
             {
-                script.heliumAmount++;
+                script.setHelium(script.getHelium() + 1);
                 counter = 0f;
             }
         }

@@ -19,7 +19,7 @@ public class BulletScript : MonoBehaviour
     {
         if (enemyTarget == null)
         {
-            FindEnemy();
+            Destroy(gameObject);
         }
     }
     private void FixedUpdate()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BuildingButton : MonoBehaviour
 {
+    
     //cancel text
     public GameObject cancelText;
     //sun coords for placement
@@ -35,6 +36,12 @@ public class BuildingButton : MonoBehaviour
 
     //can place
     private bool canPlace;
+
+    //hydrogen and helium stats
+    public StatsHolder stats;
+    private int turretCost = 5; //hydro and helium
+    private int hydrogenCost = 5; //hydrogen
+    private int heliumCost = 5; //helium
     
 
     // Start is called before the first frame update
@@ -84,6 +91,8 @@ public class BuildingButton : MonoBehaviour
                     //mouse has been clicked, place the tower!
                     cancelText.SetActive(false);
                     GameObject temp = Instantiate(turret, tempTurret.transform.position, tempTurret.transform.rotation);
+                    stats.setHydrogen(stats.getHydrogen() - turretCost);
+                    stats.setHelium(stats.getHelium() - turretCost);
                     temp.tag = "Building";
                     Destroy(tempTurret);
                     turretPlacing = false;
@@ -112,6 +121,7 @@ public class BuildingButton : MonoBehaviour
                 {
                     cancelText.SetActive(false);
                     GameObject temp = Instantiate(hydroGen, tempHydroGen.transform.position, tempHydroGen.transform.rotation);
+                    stats.setHydrogen(stats.getHydrogen() - hydrogenCost);
                     temp.tag = "Building";
                     Destroy(tempHydroGen);
                     hydroGenPlacing = false;
@@ -141,6 +151,7 @@ public class BuildingButton : MonoBehaviour
                 {
                     cancelText.SetActive(false);
                     GameObject temp = Instantiate(heliumGen, tempHeliumGen.transform.position, tempHeliumGen.transform.rotation);
+                    stats.setHelium(stats.getHelium() - heliumCost);
                     temp.tag = "Building";
                     Destroy(tempHeliumGen);
                     heliumGenPlacing = false;
@@ -154,7 +165,7 @@ public class BuildingButton : MonoBehaviour
 
     public void onTurretClick()
     {
-        if (checkCanPlace())
+        if (checkCanPlace() && stats.getHydrogen() >= turretCost && stats.getHelium() >= turretCost)
         {
             cancelText.SetActive(true);
             turretPlacing = true;
@@ -163,7 +174,7 @@ public class BuildingButton : MonoBehaviour
 
     public void onHydroGenClick()
     {
-        if (checkCanPlace())
+        if (checkCanPlace() && stats.getHydrogen() >= hydrogenCost)
         {
             cancelText.SetActive(true);
             hydroGenPlacing = true;
@@ -172,7 +183,7 @@ public class BuildingButton : MonoBehaviour
 
     public void onHeliumGenClick()
     {
-        if (checkCanPlace())
+        if (checkCanPlace() && stats.getHelium() >= heliumCost)
         {
             cancelText.SetActive(true);
             heliumGenPlacing = true;

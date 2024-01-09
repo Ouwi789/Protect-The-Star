@@ -33,7 +33,7 @@ public class HydroGenProduction : MonoBehaviour
             counter += Time.deltaTime;
             if (counter >= generateTime)
             {
-                script.hydrogenAmount++;
+                script.setHydrogen(script.getHydrogen() + 1);
                 counter = 0f;
             }
         }
