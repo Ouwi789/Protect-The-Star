@@ -6,6 +6,7 @@ public class BuildingSelection : MonoBehaviour
 {
     public Vector3 screenPosition;
     public LayerMask hitLayers;
+    public GameObject buildingStats;
     private BuildingCollision sphereScript;
     bool firstTime = true;
 
@@ -26,12 +27,15 @@ public class BuildingSelection : MonoBehaviour
                     {
                         sphereScript = hitData.transform.gameObject.GetComponent<BuildingCollision>();
                         sphereScript.CreateSphere();
+                        buildingStats.SetActive(true);
                         firstTime = false;
                     } else
                     {
                         sphereScript.DeleteSphere();
+                        buildingStats.SetActive(false);
                         sphereScript = hitData.transform.gameObject.GetComponent<BuildingCollision>();
                         sphereScript.CreateSphere();
+                        buildingStats.SetActive(true);
                     }
                 }
             } else
@@ -39,6 +43,7 @@ public class BuildingSelection : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && !firstTime)
                 {
                     sphereScript.DeleteSphere();
+                    buildingStats.SetActive(false);
                 }
             }
         }
@@ -47,6 +52,7 @@ public class BuildingSelection : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !firstTime)
             {
                 sphereScript.DeleteSphere();
+                buildingStats.SetActive(false);
             }
         }
     }

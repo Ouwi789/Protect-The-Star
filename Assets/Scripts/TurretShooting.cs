@@ -10,8 +10,6 @@ public class TurretShooting : MonoBehaviour
     public LayerMask hitLayers;
     public float range = 15f;
 
-
-
     void Update()
     {
         if(reloadCounter >= reloadTime)

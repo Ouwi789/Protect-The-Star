@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BuildingButton : MonoBehaviour
 {
     
     //cancel text
     public GameObject cancelText;
+    public GameObject costTextObject;
+    public TMP_Text costText;
     //sun coords for placement
     public GameObject sun;
     private Vector3 centreOfSphere;
@@ -42,11 +45,11 @@ public class BuildingButton : MonoBehaviour
     private int turretCost = 5; //hydro and helium
     private int hydrogenCost = 5; //hydrogen
     private int heliumCost = 5; //helium
-    
 
     // Start is called before the first frame update
     void Start()
     {
+
         centreOfSphere = sun.transform.position;
 
         turretPlacing = false;
@@ -188,6 +191,29 @@ public class BuildingButton : MonoBehaviour
             cancelText.SetActive(true);
             heliumGenPlacing = true;
         }
+    }
+
+    public void OnTurretHover()
+    {
+        costTextObject.SetActive(true);
+        costText.SetText("Hydrogen: " + turretCost + " Helium: " + turretCost);
+    }
+
+    public void OnHydroGenHover()
+    {
+        costTextObject.SetActive(true);
+        costText.SetText("Hydrogen: " + hydrogenCost);
+    }
+
+    public void OnHeliumGenHover()
+    {
+        costTextObject.SetActive(true);
+        costText.SetText("Helium: " + heliumCost);
+    }
+
+    public void OnExit()
+    {
+        costTextObject.SetActive(false);
     }
 
     private bool checkCanPlace()
