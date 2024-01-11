@@ -5,10 +5,21 @@ using UnityEngine;
 public class TurretShooting : MonoBehaviour
 {
     public GameObject bullet;
-    public float reloadTime = 6f;
-    private float reloadCounter = 0f;
+    private StatsHolder stats;
     public LayerMask hitLayers;
-    public float range = 15f;
+
+    private int damage;
+    private float range;
+    private float reloadTime;
+    private float reloadCounter = 0f;
+
+    private void Awake()
+    {
+        stats = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatsHolder>();
+        damage = (int) stats.buidlings["Turret"]["damage"];
+        reloadTime = (float)stats.buidlings["Turret"]["cooldown"];
+        range = (float)stats.buidlings["Turret"]["range"];
+    }
 
     void Update()
     {

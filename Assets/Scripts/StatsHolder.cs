@@ -10,6 +10,38 @@ public class StatsHolder : MonoBehaviour
     public int hydrogenAmount = 20;
     public int heliumAmount = 20;
 
+
+    public Dictionary<string, Dictionary<string, object>> buidlings = new();
+
+    private void Awake()
+    {
+        //damage is also production and generation for generators
+        //turret
+        Dictionary<string, object> stats = new()
+        {
+            ["damage"] = 5,
+            ["range"] = 15f,
+            ["cooldown"] = 5f
+        };
+        buidlings.Add("Turret", stats);
+        //hydrogen
+        stats = new()
+        {
+            ["damage"] = 2,
+            ["range"] = 5f,
+            ["cooldown"] = 5f
+        };
+        buidlings.Add("Hydrogen Generator", stats);
+        //helium
+        stats = new()
+        {
+            ["damage"] = 2,
+            ["range"] = 5f,
+            ["cooldown"] = 5f
+        };
+        buidlings.Add("Helium Generator", stats);
+    }
+
     private void Update()
     {
         hydrogenCount.SetText(hydrogenAmount.ToString());

@@ -2318,7 +2318,7 @@ GameObject:
   - component: {fileID: 1181225285}
   - component: {fileID: 1181225284}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: UpgradeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2829,7 +2829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1307739109
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3795,7 +3795,21 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 1
+  stats: {fileID: 1685247826}
   buildingStats: {fileID: 1307739108}
+  atkImage: {fileID: 880835277}
+  atkText: {fileID: 1264115183}
+  rangeText: {fileID: 1614933015}
+  cooldownText: {fileID: 1722090336}
+  buildingImage: {fileID: 1231223677}
+  buildingName: {fileID: 626509256}
+  upgradeText: {fileID: 1181225284}
+  atkIcon: {fileID: 21300000, guid: bf00e613aed114fe7bf956336e9ffaa4, type: 3}
+  hydrogenIcon: {fileID: 21300000, guid: e45221c8aa1584be892e854fbad38dbf, type: 3}
+  heliumIcon: {fileID: 21300000, guid: 624659073a9a1446b9d2781096828d34, type: 3}
+  turret: {fileID: 21300000, guid: b6b1d238981d94177b2cb39a8ba57074, type: 3}
+  hydrogen: {fileID: 21300000, guid: ed6a5c14d951e4aa8ad47eb60d51df01, type: 3}
+  helium: {fileID: 21300000, guid: 36b82ed40da3245dda62d24dd6029569, type: 3}
 --- !u!1 &1722090334
 GameObject:
   m_ObjectHideFlags: 0

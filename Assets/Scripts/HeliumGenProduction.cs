@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class HeliumGenProduction : MonoBehaviour
 {
-    public float generateTime = 5f;
+    
     private float counter = 0f;
     private GameObject gameController;
     private StatsHolder script;
     private bool isFake;
 
+    private StatsHolder stats;
+    private int heliumGenerated;
+    private float range;
+    private float generateTime;
+
+    private void Awake()
+    {
+        stats = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatsHolder>();
+        heliumGenerated = (int)stats.buidlings["Helium Generator"]["damage"];
+        generateTime = (float)stats.buidlings["Helium Generator"]["cooldown"];
+        range = (float)stats.buidlings["Helium Generator"]["range"];
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +46,7 @@ public class HeliumGenProduction : MonoBehaviour
             counter += Time.deltaTime;
             if (counter >= generateTime)
             {
-                script.setHelium(script.getHelium() + 1);
+                script.setHelium(script.getHelium() + heliumGenerated);
                 counter = 0f;
             }
         }
