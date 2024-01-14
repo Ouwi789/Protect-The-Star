@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretShooting : MonoBehaviour
+public class HydrogenTurretShooting : MonoBehaviour
 {
     public GameObject bullet;
     private StatsHolder stats;
@@ -16,19 +16,19 @@ public class TurretShooting : MonoBehaviour
     private void Awake()
     {
         stats = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatsHolder>();
-        damage = (int) stats.buidlings["Helium Turret"]["damage"];
-        reloadTime = (float)stats.buidlings["Helium Turret"]["cooldown"];
-        range = (float)stats.buidlings["Helium Turret"]["range"];
+        damage = (int)stats.buidlings["Hydrogen Turret"]["damage"];
+        reloadTime = (float)stats.buidlings["Hydrogen Turret"]["cooldown"];
+        range = (float)stats.buidlings["Hydrogen Turret"]["range"];
     }
 
     void Update()
     {
-        if(reloadCounter >= reloadTime)
+        if (reloadCounter >= reloadTime)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, hitLayers);
             foreach (var hitCollider in hitColliders)
             {
-                if(hitCollider.tag == "Enemy")
+                if (hitCollider.tag == "Enemy")
                 {
                     Instantiate(bullet, transform.position, Quaternion.identity);
                     reloadCounter = 0f;

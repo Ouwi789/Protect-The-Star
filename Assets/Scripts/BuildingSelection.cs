@@ -31,6 +31,7 @@ public class BuildingSelection : MonoBehaviour
     public Sprite turret;
     public Sprite hydrogen;
     public Sprite helium;
+    public Sprite hydrogenTurret;
 
     private BuildingCollision sphereScript;
     bool firstTime = true;
@@ -89,7 +90,7 @@ public class BuildingSelection : MonoBehaviour
         string name = "";
         if(building.GetComponent<TurretShooting>() != null)
         {
-            name = "Turret";
+            name = "Helium Turret";
             atkImage.sprite = atkIcon;
             buildingImage.sprite = turret;
             
@@ -105,6 +106,12 @@ public class BuildingSelection : MonoBehaviour
             name = "Helium Generator";
             atkImage.sprite = heliumIcon;
             buildingImage.sprite = helium;
+        }
+        if (building.GetComponent<HydrogenTurretShooting>() != null)
+        {
+            name = "Hydrogen Turret";
+            atkImage.sprite = atkIcon;
+            buildingImage.sprite = hydrogenTurret;
         }
         buildingName.SetText(name);
         atkText.SetText(stats.buidlings[name]["damage"].ToString());

@@ -16,14 +16,22 @@ public class StatsHolder : MonoBehaviour
     private void Awake()
     {
         //damage is also production and generation for generators
-        //turret
+        //helium turret
         Dictionary<string, object> stats = new()
         {
             ["damage"] = 5,
             ["range"] = 15f,
             ["cooldown"] = 5f
         };
-        buidlings.Add("Turret", stats);
+        buidlings.Add("Helium Turret", stats);
+        //hydrogen turret
+        stats = new()
+        {
+            ["damage"] = 10,
+            ["range"] = 30f,
+            ["cooldown"] = 8f
+        };
+        buidlings.Add("Hydrogen Turret", stats);
         //hydrogen
         stats = new()
         {
