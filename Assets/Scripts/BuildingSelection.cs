@@ -34,7 +34,10 @@ public class BuildingSelection : MonoBehaviour
     public Sprite hydrogenTurret;
 
     private BuildingCollision sphereScript;
+    private GameObject selected;
     bool firstTime = true;
+
+    private bool hoverUpgrade = false;
 
 
     // Update is called once per frame
@@ -55,6 +58,7 @@ public class BuildingSelection : MonoBehaviour
                         sphereScript.CreateSphere();
                         buildingStats.SetActive(true);
                         ToggleStats(hitData.transform.gameObject);
+                        selected = hitData.transform.gameObject;
                         firstTime = false;
                     } else
                     {
@@ -64,11 +68,12 @@ public class BuildingSelection : MonoBehaviour
                         sphereScript.CreateSphere();
                         buildingStats.SetActive(true);
                         ToggleStats(hitData.transform.gameObject);
+                        selected = hitData.transform.gameObject;
                     }
                 }
             } else
             {
-                if (Input.GetMouseButtonDown(0) && !firstTime)
+                if (Input.GetMouseButtonDown(0) && !firstTime && !hoverUpgrade)
                 {
                     sphereScript.DeleteSphere();
                     buildingStats.SetActive(false);
@@ -77,7 +82,7 @@ public class BuildingSelection : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButtonDown(0) && !firstTime)
+            if (Input.GetMouseButtonDown(0) && !firstTime && !hoverUpgrade)
             {
                 sphereScript.DeleteSphere();
                 buildingStats.SetActive(false);
@@ -85,31 +90,59 @@ public class BuildingSelection : MonoBehaviour
         }
     }
 
+    string addUpgradedName(GameObject building, string baseName)
+    {
+        if(building.GetComponent<BuildingCollision>().upgradeState != 1)
+        {
+            baseName = baseName + " " + building.GetComponent<BuildingCollision>().upgradeState.ToString();
+        }
+        return baseName;
+    }
+
+    string GetBuildingName(GameObject building)
+    {
+        //WARNING: Only gives the base upgrade state
+        string name = "";
+        if (building.GetComponent<TurretShooting>() != null)
+        {
+            name = addUpgradedName(building, "Helium Turret");
+        }
+        if (building.GetComponent<HydroGenProduction>() != null)
+        {
+            name = addUpgradedName(building, "Hydrogen Generator");
+        }
+        if (building.GetComponent<HeliumGenProduction>() != null)
+        {
+            name = addUpgradedName(building, "Helium Generator");
+        }
+        if (building.GetComponent<HydrogenTurretShooting>() != null)
+        {
+            name = addUpgradedName(building, "Hydrogen Turret");
+        }
+        return name;
+    }
+
     void ToggleStats(GameObject building)
     {
-        string name = "";
+        string name = GetBuildingName(building);
         if(building.GetComponent<TurretShooting>() != null)
         {
-            name = "Helium Turret";
             atkImage.sprite = atkIcon;
             buildingImage.sprite = turret;
             
         }
         if (building.GetComponent<HydroGenProduction>() != null)
         {
-            name = "Hydrogen Generator";
             atkImage.sprite = hydrogenIcon;
             buildingImage.sprite = hydrogen;
         }
         if (building.GetComponent<HeliumGenProduction>() != null)
         {
-            name = "Helium Generator";
             atkImage.sprite = heliumIcon;
             buildingImage.sprite = helium;
         }
         if (building.GetComponent<HydrogenTurretShooting>() != null)
         {
-            name = "Hydrogen Turret";
             atkImage.sprite = atkIcon;
             buildingImage.sprite = hydrogenTurret;
         }
@@ -118,5 +151,29 @@ public class BuildingSelection : MonoBehaviour
         cooldownText.SetText(stats.buidlings[name]["cooldown"].ToString());
         rangeText.SetText(stats.buidlings[name]["range"].ToString());
     }
-
+    public void Upgrade()
+    {
+        print("A");
+        string name = GetBuildingName(selected);
+        string upgradedName = stats.buidlings[name]["upgrade"].ToString();
+        if(upgradedName != "MAX")
+        {
+            GameObject upgradedBuilding = (GameObject) stats.buidlings[upgradedName]["object"];
+            upgradedBuilding.tag = "Building";
+            upgradedBuilding.GetComponent<BuildingCollision>().upgradeState = selected.GetComponent<BuildingCollision>().upgradeState + 1;
+            //TODO add in costs
+            Instantiate(upgradedBuilding, selected.transform.position, selected.transform.rotation);
+            Destroy(selected);
+        }
+        buildingStats.SetActive(false);
+        sphereScript.DeleteSphere();
+    }
+    public void hoverUpgradeEnter()
+    {
+        hoverUpgrade = true;
+    }
+    public void hoverUpgradeExit()
+    {
+        hoverUpgrade = false;
+    }
 }

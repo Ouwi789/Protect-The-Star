@@ -48,10 +48,6 @@ public class BuildingButton : MonoBehaviour
 
     //hydrogen and helium stats
     public StatsHolder stats;
-    private int turretCost = 5; //helium
-    private int hydrogenTurretCost = 6; //hydrogen
-    private int hydrogenCost = 5; //hydrogen
-    private int heliumCost = 5; //helium
 
     // Start is called before the first frame update
     void Start()
@@ -101,7 +97,7 @@ public class BuildingButton : MonoBehaviour
                     //mouse has been clicked, place the tower!
                     cancelText.SetActive(false);
                     GameObject temp = Instantiate(turret, tempTurret.transform.position, tempTurret.transform.rotation);
-                    stats.setHelium(stats.getHelium() - turretCost);
+                    stats.setHelium(stats.getHelium() - stats.getCost("Helium Turret"));
                     temp.tag = "Building";
                     Destroy(tempTurret);
                     turretPlacing = false;
@@ -130,7 +126,7 @@ public class BuildingButton : MonoBehaviour
                 {
                     cancelText.SetActive(false);
                     GameObject temp = Instantiate(hydroGen, tempHydroGen.transform.position, tempHydroGen.transform.rotation);
-                    stats.setHydrogen(stats.getHydrogen() - hydrogenCost);
+                    stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Generator"));
                     temp.tag = "Building";
                     Destroy(tempHydroGen);
                     hydroGenPlacing = false;
@@ -160,7 +156,7 @@ public class BuildingButton : MonoBehaviour
                 {
                     cancelText.SetActive(false);
                     GameObject temp = Instantiate(heliumGen, tempHeliumGen.transform.position, tempHeliumGen.transform.rotation);
-                    stats.setHelium(stats.getHelium() - heliumCost);
+                    stats.setHelium(stats.getHelium() - stats.getCost("Helium Generator"));
                     temp.tag = "Building";
                     Destroy(tempHeliumGen);
                     heliumGenPlacing = false;
@@ -190,7 +186,7 @@ public class BuildingButton : MonoBehaviour
                 {
                     cancelText.SetActive(false);
                     GameObject temp = Instantiate(hydrogenTurret, temphydrogenTurret.transform.position, temphydrogenTurret.transform.rotation);
-                    stats.setHydrogen(stats.getHydrogen() - hydrogenTurretCost);
+                    stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Turret"));
                     temp.tag = "Building";
                     Destroy(temphydrogenTurret);
                     hydrogenTurretPlacing = false;
@@ -204,7 +200,7 @@ public class BuildingButton : MonoBehaviour
 
     public void onTurretClick()
     {
-        if (checkCanPlace() && stats.getHelium() >= turretCost)
+        if (checkCanPlace() && stats.getHelium() >= stats.getCost("Helium Turret"))
         {
             cancelText.SetActive(true);
             turretPlacing = true;
@@ -212,7 +208,7 @@ public class BuildingButton : MonoBehaviour
     }
     public void onHydroTurretClick()
     {
-        if (checkCanPlace() && stats.getHydrogen() >= turretCost)
+        if (checkCanPlace() && stats.getHydrogen() >= stats.getCost("Hydrogen Turret"))
         {
             cancelText.SetActive(true);
             hydrogenTurretPlacing = true;
@@ -221,7 +217,7 @@ public class BuildingButton : MonoBehaviour
 
     public void onHydroGenClick()
     {
-        if (checkCanPlace() && stats.getHydrogen() >= hydrogenCost)
+        if (checkCanPlace() && stats.getHydrogen() >= stats.getCost("Hydrogen Generator"))
         {
             cancelText.SetActive(true);
             hydroGenPlacing = true;
@@ -230,7 +226,7 @@ public class BuildingButton : MonoBehaviour
 
     public void onHeliumGenClick()
     {
-        if (checkCanPlace() && stats.getHelium() >= heliumCost)
+        if (checkCanPlace() && stats.getHelium() >= stats.getCost("Helium Generator"))
         {
             cancelText.SetActive(true);
             heliumGenPlacing = true;
@@ -240,25 +236,25 @@ public class BuildingButton : MonoBehaviour
     public void OnTurretHover()
     {
         costTextObject.SetActive(true);
-        costText.SetText("Helium: " + turretCost);
+        costText.SetText("Helium: " + stats.getCost("Helium Turret"));
     }
 
     public void OnHydroTurretHover()
     {
         costTextObject.SetActive(true);
-        costText.SetText("Hydrogen: " + hydrogenTurretCost);
+        costText.SetText("Hydrogen: " + stats.getCost("Hydrogen Turret"));
     }
 
     public void OnHydroGenHover()
     {
         costTextObject.SetActive(true);
-        costText.SetText("Hydrogen: " + hydrogenCost);
+        costText.SetText("Hydrogen: " + stats.getCost("Hydrogen Generator"));
     }
 
     public void OnHeliumGenHover()
     {
         costTextObject.SetActive(true);
-        costText.SetText("Helium: " + heliumCost);
+        costText.SetText("Helium: " + stats.getCost("Helium Generator"));
     }
 
     public void OnExit()

@@ -10,6 +10,7 @@ public class BuildingCollision : MonoBehaviour
     public float range;
     public GameObject sphere;
     bool spherePlaced = false;
+    public int upgradeState = 1;
 
     private void Awake()
     {
