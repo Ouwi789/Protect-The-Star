@@ -21,6 +21,7 @@ public class BuildingSelection : MonoBehaviour
     public Image buildingImage;
     public TMP_Text buildingName;
     public TMP_Text upgradeText;
+    public Image currencyIcon;
 
     //icons
     public Sprite atkIcon;
@@ -146,17 +147,37 @@ public class BuildingSelection : MonoBehaviour
             atkImage.sprite = atkIcon;
             buildingImage.sprite = hydrogenTurret;
         }
+        if(stats.buidlings[name]["upgrade"].ToString() == "MAX") {
+            upgradeText.SetText("Upgrade: MAX");
+            atkText.SetText(stats.buidlings[name]["damage"].ToString());
+            cooldownText.SetText(stats.buidlings[name]["cooldown"].ToString());
+            rangeText.SetText(stats.buidlings[name]["range"].ToString());
+        } else
+        {
+            string upgradedName = stats.buidlings[name]["upgrade"].ToString();
+            int upgradeCost = (int) stats.buidlings[upgradedName]["cost"];
+            upgradeText.SetText("Upgrade: " + upgradeCost);
+            atkText.SetText(stats.buidlings[name]["damage"].ToString() + " -> " + stats.buidlings[upgradedName]["damage"].ToString());
+            cooldownText.SetText(stats.buidlings[name]["cooldown"].ToString() + " -> " + stats.buidlings[upgradedName]["cooldown"].ToString());
+            rangeText.SetText(stats.buidlings[name]["range"].ToString() + " -> " + stats.buidlings[upgradedName]["range"].ToString());
+        }
+        if (stats.buidlings[name]["currency"].ToString() == "h")
+        {
+            currencyIcon.sprite = hydrogenIcon;
+
+        } else
+        {
+            currencyIcon.sprite = heliumIcon;
+        }
         buildingName.SetText(name);
-        atkText.SetText(stats.buidlings[name]["damage"].ToString());
-        cooldownText.SetText(stats.buidlings[name]["cooldown"].ToString());
-        rangeText.SetText(stats.buidlings[name]["range"].ToString());
+        
     }
     public void Upgrade()
     {
-        print("A");
         string name = GetBuildingName(selected);
         string upgradedName = stats.buidlings[name]["upgrade"].ToString();
-        if(upgradedName != "MAX")
+        int upgradeCost = (int) stats.buidlings[upgradedName]["cost"];
+        if (upgradedName != "MAX" && checkUpgradeCostAndPay(upgradedName)) //TODO add currency for cost so we know 
         {
             GameObject upgradedBuilding = (GameObject) stats.buidlings[upgradedName]["object"];
             upgradedBuilding.tag = "Building";
@@ -175,5 +196,32 @@ public class BuildingSelection : MonoBehaviour
     public void hoverUpgradeExit()
     {
         hoverUpgrade = false;
+    }
+    private bool checkUpgradeCostAndPay(string upgradedName)
+    {
+        int upgradeCost = (int)stats.buidlings[upgradedName]["cost"];
+        if (stats.buidlings[upgradedName]["currency"].ToString() == "h")
+        {
+            if (stats.getHydrogen() >= upgradeCost)
+            {
+                stats.setHydrogen(stats.getHydrogen() - upgradeCost);
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (stats.getHelium() >= upgradeCost)
+            {
+                stats.setHelium(stats.getHelium() - upgradeCost);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

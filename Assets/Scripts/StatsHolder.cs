@@ -31,6 +31,7 @@ public class StatsHolder : MonoBehaviour
             ["cooldown"] = 5f,
             ["cost"] = 5,
             ["object"] = heliumTurret1,
+            ["currency"] = "he",
             ["upgrade"] = "Helium Turret 2"
         };
         buidlings.Add("Helium Turret", stats);
@@ -42,6 +43,7 @@ public class StatsHolder : MonoBehaviour
             ["cooldown"] = 3.5f,
             ["cost"] = 10,
             ["object"] = heliumTurret2,
+            ["currency"] = "he",
             ["upgrade"] = "MAX" //wont' be final evolution, just for testing
         };
         buidlings.Add("Helium Turret 2", stats);
@@ -53,6 +55,7 @@ public class StatsHolder : MonoBehaviour
             ["cooldown"] = 8f,
             ["cost"] = 6,
             ["object"] = hydrogenTurret1,
+            ["currency"] = "h",
             ["upgrade"] = "Hydrogen Turret 2"
         };
         buidlings.Add("Hydrogen Turret", stats);
@@ -64,6 +67,7 @@ public class StatsHolder : MonoBehaviour
             ["cooldown"] = 5f,
             ["cost"] = 5,
             ["object"] = hydroGen1,
+            ["currency"] = "h",
             ["upgrade"] = "Hydrogen Generator 2"
         };
         buidlings.Add("Hydrogen Generator", stats);
@@ -75,6 +79,7 @@ public class StatsHolder : MonoBehaviour
             ["cooldown"] = 5f,
             ["cost"] = 5,
             ["object"] = heliumGen1,
+            ["currency"] = "he",
             ["upgrade"] = "Helium Generator 2"
         };
         buidlings.Add("Helium Generator", stats);
