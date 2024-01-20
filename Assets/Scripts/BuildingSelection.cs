@@ -176,18 +176,18 @@ public class BuildingSelection : MonoBehaviour
     {
         string name = GetBuildingName(selected);
         string upgradedName = stats.buidlings[name]["upgrade"].ToString();
-        int upgradeCost = (int) stats.buidlings[upgradedName]["cost"];
         if (upgradedName != "MAX" && checkUpgradeCostAndPay(upgradedName)) //TODO add currency for cost so we know 
         {
             GameObject upgradedBuilding = (GameObject) stats.buidlings[upgradedName]["object"];
-            upgradedBuilding.tag = "Building";
-            upgradedBuilding.GetComponent<BuildingCollision>().upgradeState = selected.GetComponent<BuildingCollision>().upgradeState + 1;
-            //TODO add in costs
-            Instantiate(upgradedBuilding, selected.transform.position, selected.transform.rotation);
+            GameObject temp = Instantiate(upgradedBuilding, selected.transform.position, selected.transform.rotation);
+            temp.tag = "Building"; ;
+            temp.GetComponent<BuildingCollision>().upgradeState = selected.GetComponent<BuildingCollision>().upgradeState + 1;
             Destroy(selected);
         }
         buildingStats.SetActive(false);
         sphereScript.DeleteSphere();
+        firstTime = true;
+        hoverUpgrade = false;
     }
     public void hoverUpgradeEnter()
     {

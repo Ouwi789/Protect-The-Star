@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 5151993409134867705}
   - component: {fileID: 5502558029407696618}
   - component: {fileID: 135263170627462426}
+  - component: {fileID: 3684517791038445640}
   m_Layer: 0
   m_Name: Cube.003
   m_TagString: Untagged
@@ -332,6 +333,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3684517791038445640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4215167124123748088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa0923dccbb9493e99aa99a1944cd95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 5028956376813143735, guid: be3f13e8edc75456899b2ce4fd5689fc, type: 3}
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &5218831734134904291
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +613,7 @@ GameObject:
   - component: {fileID: 7553887699773314230}
   m_Layer: 0
   m_Name: heliumShooter2
-  m_TagString: Building
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -700,7 +717,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

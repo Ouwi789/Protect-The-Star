@@ -289,6 +289,7 @@ MonoBehaviour:
   sphereColor: {fileID: 2100000, guid: ea5a235ad727242e6a2700a73d9347d4, type: 2}
   range: 15
   sphere: {fileID: 0}
+  upgradeState: 1
 --- !u!114 &4806379715731673004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,11 +303,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 5028956376813143735, guid: cf1b35b822e3447dea43ee599770c756, type: 3}
-  reloadTime: 6
   hitLayers:
     serializedVersion: 2
     m_Bits: 1
-  range: 15
 --- !u!95 &-3357871726960435052
 Animator:
   serializedVersion: 5

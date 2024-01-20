@@ -34,6 +34,7 @@ public class BulletScript : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
+            print("S");
             Destroy(this.gameObject);
         }
     }
