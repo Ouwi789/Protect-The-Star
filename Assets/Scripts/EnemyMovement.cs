@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -12,9 +13,18 @@ public class EnemyMovement : MonoBehaviour
     private GameObject sun;
     private Vector3 targetPosition;
 
-    [SerializeField] private int damage;
+    private HealthBar healthCanvas;
+    
+    [SerializeField] private int maxHealth;
+    private int health;
     [SerializeField] private float speed;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        health = maxHealth;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,6 +32,13 @@ public class EnemyMovement : MonoBehaviour
         sun = GameObject.FindGameObjectWithTag("Sun");
         targetPosition = sun.transform.position;
         healthScript = gameController.GetComponent<GameState>();
+        healthCanvas = gameObject.GetComponentInChildren<HealthBar>();
+        healthCanvas.updateHealthBar(maxHealth, health);
+    }
+
+    private void Update()
+    {
+        healthCanvas.updateHealthBar(maxHealth, health);
     }
 
     private void FixedUpdate()
@@ -37,11 +54,19 @@ public class EnemyMovement : MonoBehaviour
     {
         if(other.tag == "Building" || other.tag == "Sun")
         {
-            healthScript.setHealth(healthScript.getHealth() - damage);
+            healthScript.setHealth(healthScript.getHealth() - health);
             Destroy(gameObject);
         } else if (other.tag == "Bullet")
         {
-            Destroy(gameObject);
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+            health -= other.GetComponent<BulletScript>().damage;
+            if(health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
     public Transform getPosition()

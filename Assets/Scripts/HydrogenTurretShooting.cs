@@ -30,7 +30,8 @@ public class HydrogenTurretShooting : MonoBehaviour
             {
                 if (hitCollider.tag == "Enemy")
                 {
-                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    GameObject temp = Instantiate(bullet, transform.position, Quaternion.identity);
+                    temp.GetComponent<BulletScript>().damage = damage;
                     reloadCounter = 0f;
                 }
             }

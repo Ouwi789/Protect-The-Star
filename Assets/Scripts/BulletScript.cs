@@ -9,6 +9,7 @@ public class BulletScript : MonoBehaviour
     private Transform enemyPos;
     private Rigidbody rb;
     [SerializeField] private float speed;
+    public int damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +35,6 @@ public class BulletScript : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            print("S");
             Destroy(this.gameObject);
         }
     }
