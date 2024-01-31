@@ -38,7 +38,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        healthCanvas.updateHealthBar(maxHealth, health);
+        if(healthCanvas)
+        {
+            healthCanvas.updateHealthBar(maxHealth, health);
+        }
     }
 
     private void FixedUpdate()
