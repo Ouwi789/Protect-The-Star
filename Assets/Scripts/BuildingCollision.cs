@@ -76,6 +76,7 @@ public class BuildingCollision : MonoBehaviour
             Renderer renderer = sphere.GetComponent<Renderer>();
             sphere.layer = 1;
             sphere.transform.position = transform.position;
+            sphere.transform.parent = gameObject.transform;
             renderer.material = sphereColor;
             sphere.transform.localScale = new Vector3(range * 2, range * 2, range * 2);
             spherePlaced = true;

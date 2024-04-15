@@ -15,7 +15,7 @@ public class HealthBar : MonoBehaviour
         mainCam = Camera.main;
     }
 
-    public void updateHealthBar(int maxHealth, int health)
+    public void updateHealthBar(float maxHealth, float health)
     {
         healthGreen.rectTransform.localScale = new Vector2(health / maxHealth, 1);
     }

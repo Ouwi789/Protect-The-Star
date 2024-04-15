@@ -4534,38 +4534,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1685247825}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &3498836906886157457
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4307003707960692267}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 64.4, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4670195381244208540}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4307003707960692267
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3498836906886157457}
-  m_Layer: 7
-  m_Name: sun
-  m_TagString: Sun
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4670195381244208540
 Transform:
   m_ObjectHideFlags: 0
@@ -4574,12 +4542,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5104864132993789164}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 64.4, z: 0}
+  m_LocalScale: {x: 1000, y: 999.9999, z: 999.9999}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3498836906886157457}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5104864132993789164
 GameObject:
@@ -4593,6 +4561,7 @@ GameObject:
   - component: {fileID: 6672292591807119903}
   - component: {fileID: 6964931529916749312}
   - component: {fileID: 6964931529916749313}
+  - component: {fileID: 6964931529916749314}
   m_Layer: 7
   m_Name: Sphere
   m_TagString: Sun
@@ -4671,6 +4640,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.029999996
   m_Center: {x: -0.000000008381903, y: 0.000000009313225, z: 6.617445e-23}
+--- !u!114 &6964931529916749314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5104864132993789164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab8fc0f19fa0407492997e2ddb2bbbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4678,7 +4659,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 2055915466}
   - {fileID: 844852304}
-  - {fileID: 3498836906886157457}
+  - {fileID: 4670195381244208540}
   - {fileID: 2047409672}
   - {fileID: 632845457}
   - {fileID: 1685247825}

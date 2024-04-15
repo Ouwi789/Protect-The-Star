@@ -10,8 +10,8 @@ public class GameState : MonoBehaviour
 
     public TMP_Text healthText;
 
-    [SerializeField] private int maxHealth;
-    public int health;
+    [SerializeField] private float maxHealth;
+    public float health;
 
     bool isPlaying = true;
     bool isDead = false;
@@ -46,11 +46,11 @@ public class GameState : MonoBehaviour
         isDead = true;
         print("YOU DIED");
     }
-    public void setHealth(int newHealth)
+    public void setHealth(float newHealth)
     {
         health = newHealth;
     }
-    public int getHealth()
+    public float getHealth()
     {
         return health;
     }

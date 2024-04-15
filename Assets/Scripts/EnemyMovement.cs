@@ -15,8 +15,8 @@ public class EnemyMovement : MonoBehaviour
 
     private HealthBar healthCanvas;
     
-    [SerializeField] private int maxHealth;
-    private int health;
+    [SerializeField] private float maxHealth;
+    public float health;
     [SerializeField] private float speed;
     // Start is called before the first frame update
 
@@ -36,11 +36,15 @@ public class EnemyMovement : MonoBehaviour
         healthCanvas.updateHealthBar(maxHealth, health);
     }
 
-    private void Update()
+    void Update()
     {
         if(healthCanvas)
         {
             healthCanvas.updateHealthBar(maxHealth, health);
+        }
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -59,17 +63,6 @@ public class EnemyMovement : MonoBehaviour
         {
             healthScript.setHealth(healthScript.getHealth() - health);
             Destroy(gameObject);
-        } else if (other.tag == "Bullet")
-        {
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
-            health -= other.GetComponent<BulletScript>().damage;
-            if(health <= 0)
-            {
-                Destroy(gameObject);
-            }
         }
     }
     public Transform getPosition()

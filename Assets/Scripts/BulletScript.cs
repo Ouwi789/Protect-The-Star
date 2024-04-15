@@ -8,6 +8,8 @@ public class BulletScript : MonoBehaviour
     private GameObject enemyTarget;
     private Transform enemyPos;
     private Rigidbody rb;
+    private float lifetime = 5f;
+    private float counter = 0f;
     [SerializeField] private float speed;
     public int damage;
     // Start is called before the first frame update
@@ -30,6 +32,11 @@ public class BulletScript : MonoBehaviour
         Vector3 direction = enemyPos.position - currPos;
         direction.Normalize();
         rb.MovePosition(currPos + (speed * Time.fixedDeltaTime * direction));
+        counter += Time.deltaTime;
+        if (counter > lifetime)
+        {
+            Destroy(gameObject);
+        }
     }
     void OnTriggerEnter(Collider other)
     {
