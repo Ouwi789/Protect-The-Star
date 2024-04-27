@@ -9,6 +9,9 @@ TagManager:
   - Building
   - Enemy
   - Bullet
+  - Story
+  - Infinite
+  - Tutorial
   layers:
   - Default
   - TransparentFX

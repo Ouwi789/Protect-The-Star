@@ -44,7 +44,7 @@ public class StatsHolder : MonoBehaviour
             ["cost"] = 10,
             ["object"] = heliumTurret2,
             ["currency"] = "he",
-            ["upgrade"] = "MAX" //wont' be final evolution, just for testing
+            ["upgrade"] = "MAX" //wont' be final evolution, just for testing (same with other towers)
         };
         buidlings.Add("Helium Turret 2", stats);
         //hydrogen turret
@@ -56,7 +56,7 @@ public class StatsHolder : MonoBehaviour
             ["cost"] = 6,
             ["object"] = hydrogenTurret1,
             ["currency"] = "h",
-            ["upgrade"] = "Hydrogen Turret 2"
+            ["upgrade"] = "MAX"
         };
         buidlings.Add("Hydrogen Turret", stats);
         //hydrogen
@@ -68,7 +68,7 @@ public class StatsHolder : MonoBehaviour
             ["cost"] = 5,
             ["object"] = hydroGen1,
             ["currency"] = "h",
-            ["upgrade"] = "Hydrogen Generator 2"
+            ["upgrade"] = "MAX"
         };
         buidlings.Add("Hydrogen Generator", stats);
         //helium
@@ -80,7 +80,7 @@ public class StatsHolder : MonoBehaviour
             ["cost"] = 5,
             ["object"] = heliumGen1,
             ["currency"] = "he",
-            ["upgrade"] = "Helium Generator 2"
+            ["upgrade"] = "MAX"
         };
         buidlings.Add("Helium Generator", stats);
     }

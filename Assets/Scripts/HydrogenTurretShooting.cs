@@ -23,7 +23,7 @@ public class HydrogenTurretShooting : MonoBehaviour
 
     void Update()
     {
-        if (reloadCounter >= reloadTime)
+        if (reloadCounter >= reloadTime) //TODO change the script so it does damage to enemy with bullet as animation and not as a deciding factor
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, hitLayers);
             foreach (var hitCollider in hitColliders)

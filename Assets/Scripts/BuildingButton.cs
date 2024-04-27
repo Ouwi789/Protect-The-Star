@@ -98,9 +98,7 @@ public class BuildingButton : MonoBehaviour
 
                     //possibly change the position to initially be on Sun and change the building script to animate it to the outside
                     cancelText.SetActive(false);
-                    Vector3 placePos = addDistance(sun.transform, tempTurret.transform);
-                    GameObject temp = Instantiate(turret, placePos, tempTurret.transform.rotation);
-                    temp.transform.parent = sun.transform;
+                    GameObject temp = Instantiate(turret, tempTurret.transform.position, tempTurret.transform.rotation);
                     stats.setHelium(stats.getHelium() - stats.getCost("Helium Turret"));
                     temp.tag = "Building";
                     Destroy(tempTurret);
@@ -129,9 +127,7 @@ public class BuildingButton : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && canPlace)
                 {
                     cancelText.SetActive(false);
-                    Vector3 placePos = addDistance(sun.transform, tempHydroGen.transform);
-                    GameObject temp = Instantiate(hydroGen, placePos, tempHydroGen.transform.rotation);
-                    temp.transform.parent = sun.transform;
+                    GameObject temp = Instantiate(hydroGen, tempHydroGen.transform.position, tempHydroGen.transform.rotation);
                     stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Generator"));
                     temp.tag = "Building";
                     Destroy(tempHydroGen);
@@ -161,9 +157,7 @@ public class BuildingButton : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && canPlace)
                 {
                     cancelText.SetActive(false);
-                    Vector3 placePos = addDistance(sun.transform, tempHeliumGen.transform);
-                    GameObject temp = Instantiate(heliumGen, placePos, tempHeliumGen.transform.rotation);
-                    temp.transform.parent = sun.transform;
+                    GameObject temp = Instantiate(heliumGen, tempHeliumGen.transform.position, tempHeliumGen.transform.rotation);
                     stats.setHelium(stats.getHelium() - stats.getCost("Helium Generator"));
                     temp.tag = "Building";
                     Destroy(tempHeliumGen);
@@ -193,9 +187,7 @@ public class BuildingButton : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && canPlace)
                 {
                     cancelText.SetActive(false);
-                    Vector3 placePos = addDistance(sun.transform, temphydrogenTurret.transform);
-                    GameObject temp = Instantiate(hydrogenTurret, placePos, temphydrogenTurret.transform.rotation);
-                    temp.transform.parent = sun.transform;
+                    GameObject temp = Instantiate(hydrogenTurret, temphydrogenTurret.transform.position, temphydrogenTurret.transform.rotation);
                     stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Turret"));
                     temp.tag = "Building";
                     Destroy(temphydrogenTurret);
@@ -207,13 +199,7 @@ public class BuildingButton : MonoBehaviour
         }
     }
 
-    public Vector3 addDistance(Transform originPos, Transform currPos)
-    {
-        float x = currPos.position.x - (originPos.position.x - currPos.position.x);
-        float y = currPos.position.y - (originPos.position.y - currPos.position.y);
-        float z = currPos.position.z - (originPos.position.z - currPos.position.z);
-        return new Vector3(x, y, z);
-    }
+    
     public void onTurretClick()
     {
         if (checkCanPlace() && stats.getHelium() >= stats.getCost("Helium Turret"))
