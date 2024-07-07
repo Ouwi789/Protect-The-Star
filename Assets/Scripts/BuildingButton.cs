@@ -5,7 +5,9 @@ using TMPro;
 
 public class BuildingButton : MonoBehaviour
 {
-    
+
+    //TODO do not allow multiple turrets on platform, have a variable named 'occupied'
+
     //cancel text
     public GameObject cancelText;
     public GameObject costTextObject;
@@ -13,6 +15,18 @@ public class BuildingButton : MonoBehaviour
     //sun coords for placement
     public GameObject sun;
     private Vector3 centreOfSphere;
+
+    //helium platform
+    public GameObject heliumPlatform;
+    private bool heliumPlatformPlacing;
+    private bool tempHeliumPlatformPlaced;
+    private GameObject tempHeliumPlatform;
+
+    //hydrogen platform
+    public GameObject hydrogenPlatform;
+    private bool hydrogenPlatformPlacing;
+    private bool tempHydrogenPlatformPlaced;
+    private GameObject tempHydrogenPlatform;
 
     //helium turret
     public GameObject turret;
@@ -46,21 +60,34 @@ public class BuildingButton : MonoBehaviour
     //can place
     private bool canPlace;
 
+    //onHover
+    public bool hovered;
+
     //hydrogen and helium stats
     public StatsHolder stats;
+
+    //platformSelection Script
+    public BuildingSelection platformSelector;
 
     // Start is called before the first frame update
     void Start()
     {
 
         centreOfSphere = sun.transform.position;
-
+        //platforms
+        hydrogenPlatformPlacing = false;
+        tempHydrogenPlatformPlaced = false;
+        heliumPlatformPlacing = false;
+        tempHeliumPlatformPlaced = false;
+        //buildings
         turretPlacing = false;
         tempTurretPlaced = false;
         hydroGenPlacing = false;
         tempHydroGenPlaced = false;
         heliumGenPlacing = false;
         tempHeliumGenPlaced = false;
+        //hovered
+        hovered = false;
     }
 
     // Update is called once per frame
@@ -68,138 +95,176 @@ public class BuildingButton : MonoBehaviour
     {
         screenPosition = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
-        if(Physics.Raycast(ray, out RaycastHit hitData, 100, hitLayers))
+        if (Physics.Raycast(ray, out RaycastHit hitData, 100, hitLayers))
         {
             worldPosition = hitData.point;
         }
 
         if (turretPlacing)
         {
-            if(!tempTurretPlaced)
-            {
-                tempTurret = createTempBuilding(turret);
-                tempTurretPlaced = true;
-            } else
-            {
-                // Vector3 normal = (worldPosition - centreOfSphere).normalized;
-                // Quaternion rotation = Quaternion.LookRotation(normal);
-                moveTempBuilding(tempTurret);
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    //cancel placement
-                    cancelText.SetActive(false);
-                    Destroy(tempTurret);
-                    turretPlacing = false;
-                    tempTurretPlaced = false;
-                }
-                if (Input.GetMouseButtonDown(0) && canPlace)
-                {
-                    //mouse has been clicked, place the tower!
+            GameObject tempPlatform = platformSelector.getPlatform();
+            tempPlatform.GetComponent<PlatformBehaviour>().setOccupied(true);
+            GameObject temp = Instantiate(turret, tempPlatform.transform.position, tempPlatform.transform.rotation);
+            stats.setHelium(stats.getHelium() - stats.getCost("Helium Turret"));
+            temp.tag = "Building";
+            tempPlatform.GetComponent<PlatformBehaviour>().setBuilding(temp);
+            Destroy(tempTurret);
+            turretPlacing = false;
+            tempTurretPlaced = false;
+            platformSelector.switchToPlatformState();
 
-                    //possibly change the position to initially be on Sun and change the building script to animate it to the outside
-                    cancelText.SetActive(false);
-                    GameObject temp = Instantiate(turret, tempTurret.transform.position, tempTurret.transform.rotation);
-                    stats.setHelium(stats.getHelium() - stats.getCost("Helium Turret"));
-                    temp.tag = "Building";
-                    Destroy(tempTurret);
-                    turretPlacing = false;
-                    tempTurretPlaced = false;
-                }
-            }
-            canPlace = tempTurret.GetComponent<BuildingCollision>().canPlace;
+            /* if (!tempTurretPlaced)
+              {
+                  tempTurret = createTempBuilding(turret);
+                  tempTurretPlaced = true;
+              } else
+              {
+                  // Vector3 normal = (worldPosition - centreOfSphere).normalized;
+                  // Quaternion rotation = Quaternion.LookRotation(normal);
+                  moveTempBuilding(tempTurret);
+                  if (Input.GetKeyDown(KeyCode.Q))
+                  {
+                      //cancel placement
+                      cancelText.SetActive(false);
+                      Destroy(tempTurret);
+                      turretPlacing = false;
+                      tempTurretPlaced = false;
+                  }
+                  if (Input.GetMouseButtonDown(0) && canPlace)
+                  {
+                      //mouse has been clicked, place the tower!
+
+                      //possibly change the position to initially be on Sun and change the building script to animate it to the outside
+                      cancelText.SetActive(false);
+                      GameObject temp = Instantiate(turret, tempTurret.transform.position, tempTurret.transform.rotation);
+                      stats.setHelium(stats.getHelium() - stats.getCost("Helium Turret"));
+                      temp.tag = "Building";
+                      Destroy(tempTurret);
+                      turretPlacing = false;
+                      tempTurretPlaced = false;
+                  }
+              } 
+              canPlace = tempTurret.GetComponent<BuildingCollision>().canPlace; */
         } else if (hydroGenPlacing)
         {
-            if (!tempHydroGenPlaced)
-            {
-                tempHydroGen = createTempBuilding(hydroGen);
-                tempHydroGenPlaced = true;
-            }
-            else
-            {
-                moveTempBuilding(tempHydroGen);
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    cancelText.SetActive(false);
-                    Destroy(tempHydroGen);
-                    hydroGenPlacing = false;
-                    tempHydroGenPlaced = false;
-                }
-                if (Input.GetMouseButtonDown(0) && canPlace)
-                {
-                    cancelText.SetActive(false);
-                    GameObject temp = Instantiate(hydroGen, tempHydroGen.transform.position, tempHydroGen.transform.rotation);
-                    stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Generator"));
-                    temp.tag = "Building";
-                    Destroy(tempHydroGen);
-                    hydroGenPlacing = false;
-                    tempHydroGenPlaced = false;
-                }
-            }
-            canPlace = tempHydroGen.GetComponent<BuildingCollision>().canPlace;
+            GameObject tempPlatform = platformSelector.getPlatform();
+            tempPlatform.GetComponent<PlatformBehaviour>().setOccupied(true);
+            GameObject temp = Instantiate(hydroGen, tempPlatform.transform.position, tempPlatform.transform.rotation);
+            stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Generator"));
+            temp.tag = "Building";
+            tempPlatform.GetComponent<PlatformBehaviour>().setBuilding(temp);
+            Destroy(tempHydroGen);
+            hydroGenPlacing = false;
+            tempHydroGenPlaced = false;
+            platformSelector.switchToPlatformState();
         }
         else if (heliumGenPlacing)
         {
-            if (!tempHeliumGenPlaced)
-            {
-                tempHeliumGen = createTempBuilding(heliumGen);
-                tempHeliumGenPlaced = true;
-            }
-            else
-            {
-                moveTempBuilding(tempHeliumGen);
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    cancelText.SetActive(false);
-                    Destroy(tempHeliumGen);
-                    heliumGenPlacing = false;
-                    tempHeliumGenPlaced = false;
-                }
-                if (Input.GetMouseButtonDown(0) && canPlace)
-                {
-                    cancelText.SetActive(false);
-                    GameObject temp = Instantiate(heliumGen, tempHeliumGen.transform.position, tempHeliumGen.transform.rotation);
-                    stats.setHelium(stats.getHelium() - stats.getCost("Helium Generator"));
-                    temp.tag = "Building";
-                    Destroy(tempHeliumGen);
-                    heliumGenPlacing = false;
-                    tempHeliumGenPlaced = false;
-                }
-            }
-            canPlace = tempHeliumGen.GetComponent<BuildingCollision>().canPlace;
+            GameObject tempPlatform = platformSelector.getPlatform();
+            tempPlatform.GetComponent<PlatformBehaviour>().setOccupied(true);
+            GameObject temp = Instantiate(heliumGen, tempPlatform.transform.position, tempPlatform.transform.rotation);
+            stats.setHelium(stats.getHelium() - stats.getCost("Helium Generator"));
+            temp.tag = "Building";
+            tempPlatform.GetComponent<PlatformBehaviour>().setBuilding(temp);
+            Destroy(tempHeliumGen);
+            heliumGenPlacing = false;
+            tempHeliumGenPlaced = false;
+            platformSelector.switchToPlatformState();
         }
         else if (hydrogenTurretPlacing)
         {
-            if (!temphydrogenTurretPlaced)
+            GameObject tempPlatform = platformSelector.getPlatform();
+            tempPlatform.GetComponent<PlatformBehaviour>().setOccupied(true);
+            GameObject temp = Instantiate(hydrogenTurret, tempPlatform.transform.position, tempPlatform.transform.rotation);
+            stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Turret"));
+            temp.tag = "Building";
+            tempPlatform.GetComponent<PlatformBehaviour>().setBuilding(temp);
+            Destroy(temphydrogenTurret);
+            hydrogenTurretPlacing = false;
+            temphydrogenTurretPlaced = false;
+            platformSelector.switchToPlatformState();
+        }
+        else if (hydrogenPlatformPlacing)
+        {
+            if (!tempHydrogenPlatformPlaced)
             {
-                temphydrogenTurret = createTempBuilding(hydrogenTurret);
-                temphydrogenTurretPlaced = true;
+                tempHydrogenPlatform = createTempBuilding(hydrogenPlatform);
+                tempHydrogenPlatformPlaced = true;
             }
             else
             {
-                moveTempBuilding(temphydrogenTurret);
+                moveTempPlatform(tempHydrogenPlatform);
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
                     cancelText.SetActive(false);
-                    Destroy(temphydrogenTurret);
-                    hydrogenTurretPlacing = false;
-                    temphydrogenTurretPlaced = false;
+                    Destroy(tempHydrogenPlatform);
+                    hydrogenPlatformPlacing = false;
+                    tempHydrogenPlatformPlaced = false;
                 }
                 if (Input.GetMouseButtonDown(0) && canPlace)
                 {
                     cancelText.SetActive(false);
-                    GameObject temp = Instantiate(hydrogenTurret, temphydrogenTurret.transform.position, temphydrogenTurret.transform.rotation);
-                    stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Turret"));
-                    temp.tag = "Building";
-                    Destroy(temphydrogenTurret);
-                    hydrogenTurretPlacing = false;
-                    temphydrogenTurretPlaced = false;
+                    GameObject temp = Instantiate(hydrogenPlatform, tempHydrogenPlatform.transform.position, tempHydrogenPlatform.transform.rotation);
+                    stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Platform"));
+                    temp.tag = "Platform";
+                    Destroy(tempHydrogenPlatform);
+                    hydrogenPlatformPlacing = false;
+                    tempHydrogenPlatformPlaced = false;
                 }
             }
-            canPlace = temphydrogenTurret.GetComponent<BuildingCollision>().canPlace;
+            canPlace = tempHydrogenPlatform.GetComponent<BuildingCollision>().canPlace;
+        }
+        else if (heliumPlatformPlacing)
+        {
+            if (!tempHeliumPlatformPlaced)
+            {
+                tempHeliumPlatform = createTempBuilding(heliumPlatform);
+                tempHeliumPlatformPlaced = true;
+            }
+            else
+            {
+                moveTempPlatform(tempHeliumPlatform);
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    cancelText.SetActive(false);
+                    Destroy(tempHeliumPlatform);
+                    heliumPlatformPlacing = false;
+                    tempHeliumPlatformPlaced = false;
+                }
+                if (Input.GetMouseButtonDown(0) && canPlace)
+                {
+                    cancelText.SetActive(false);
+                    GameObject temp = Instantiate(heliumPlatform, tempHeliumPlatform.transform.position, tempHeliumPlatform.transform.rotation);
+                    stats.setHelium(stats.getHelium() - stats.getCost("Helium Platform"));
+                    temp.tag = "Platform";
+                    Destroy(tempHeliumPlatform);
+                    heliumPlatformPlacing = false;
+                    tempHeliumPlatformPlaced = false;
+                }
+            }
+            canPlace = tempHeliumPlatform.GetComponent<BuildingCollision>().canPlace;
         }
     }
 
-    
+    public void onHydrogenPlatClick()
+    {
+        if (checkCanPlace() && stats.getHydrogen() >= stats.getCost("Hydrogen Platform"))
+        {
+            cancelText.SetActive(true);
+            hydrogenPlatformPlacing = true;
+        }
+    }
+
+    public void onHeliumPlatClick()
+    {
+        if (checkCanPlace() && stats.getHelium() >= stats.getCost("Helium Platform"))
+        {
+            cancelText.SetActive(true);
+            heliumPlatformPlacing = true;
+        }
+    }
+
+
     public void onTurretClick()
     {
         if (checkCanPlace() && stats.getHelium() >= stats.getCost("Helium Turret"))
@@ -235,38 +300,87 @@ public class BuildingButton : MonoBehaviour
         }
     }
 
+    public void OnHydroPlatHover()
+    {
+        costTextObject.SetActive(true);
+        costText.SetText("Hydrogen: " + stats.getCost("Hydrogen Platform"));
+    }
+
+    public void OnHeliumPlatHover()
+    {
+        costTextObject.SetActive(true);
+        costText.SetText("Helium: " + stats.getCost("Helium Platform"));
+    }
+
     public void OnTurretHover()
     {
         costTextObject.SetActive(true);
         costText.SetText("Helium: " + stats.getCost("Helium Turret"));
+        tempTurret = createTempBuilding(turret);
+        tempTurretPlaced = true;
+        moveTempBuilding(tempTurret, platformSelector.getPlatform());
+        hovered = true;
     }
 
     public void OnHydroTurretHover()
     {
         costTextObject.SetActive(true);
         costText.SetText("Hydrogen: " + stats.getCost("Hydrogen Turret"));
+        temphydrogenTurret = createTempBuilding(hydrogenTurret);
+        temphydrogenTurretPlaced = true;
+        moveTempBuilding(temphydrogenTurret, platformSelector.getPlatform());
+        hovered = true;
     }
 
     public void OnHydroGenHover()
     {
         costTextObject.SetActive(true);
         costText.SetText("Hydrogen: " + stats.getCost("Hydrogen Generator"));
+        tempHydroGen = createTempBuilding(hydroGen);
+        tempHydroGenPlaced = true;
+        moveTempBuilding(tempHydroGen, platformSelector.getPlatform());
+        hovered = true;
     }
 
     public void OnHeliumGenHover()
     {
         costTextObject.SetActive(true);
         costText.SetText("Helium: " + stats.getCost("Helium Generator"));
+        tempHeliumGen = createTempBuilding(heliumGen);
+        tempHeliumGenPlaced = true;
+        moveTempBuilding(tempHeliumGen, platformSelector.getPlatform());
+        hovered = true;
     }
 
     public void OnExit()
     {
         costTextObject.SetActive(false);
+        hovered = false;
+        if (tempTurretPlaced)
+        {
+            tempTurretPlaced = false;
+            Destroy(tempTurret);
+        }
+        if (tempHydroGenPlaced)
+        {
+            tempHydroGenPlaced = false;
+            Destroy(tempHydroGen);
+        }
+        if (tempHeliumGenPlaced)
+        {
+            tempHeliumGenPlaced = false;
+            Destroy(tempHeliumGen);
+        }
+        if (temphydrogenTurretPlaced)
+        {
+            temphydrogenTurretPlaced = false;
+            Destroy(temphydrogenTurret);
+        }
     }
 
     private bool checkCanPlace()
     {
-        return !(turretPlacing || hydroGenPlacing || heliumGenPlacing);
+        return !(turretPlacing || hydroGenPlacing || heliumGenPlacing || hydrogenTurretPlacing || heliumPlatformPlacing || hydrogenPlatformPlacing);
     }
 
     private GameObject createBuilding(GameObject building)
@@ -284,10 +398,17 @@ public class BuildingButton : MonoBehaviour
         canPlace = temp.GetComponent<BuildingCollision>().canPlace;
         return temp;
     }
-    private void moveTempBuilding(GameObject building)
+    private void moveTempBuilding(GameObject building, GameObject platform)
+    {
+        building.transform.position = platform.transform.position;
+        building.transform.LookAt(centreOfSphere);
+        building.transform.rotation *= Quaternion.Euler(-90, 0, 0);
+    }
+    private void moveTempPlatform(GameObject building)
     {
         building.transform.position = worldPosition;
         building.transform.LookAt(centreOfSphere);
         building.transform.rotation *= Quaternion.Euler(-90, 0, 0);
     }
+
 }

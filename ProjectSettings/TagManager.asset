@@ -12,6 +12,7 @@ TagManager:
   - Story
   - Infinite
   - Tutorial
+  - Platform
   layers:
   - Default
   - TransparentFX

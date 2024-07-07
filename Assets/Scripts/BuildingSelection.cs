@@ -9,8 +9,16 @@ public class BuildingSelection : MonoBehaviour
     public Vector3 screenPosition;
     public LayerMask hitLayers;
 
+    //button UI (platform / buidling)
+    public GameObject platformButtons;
+    public GameObject buildingButtons;
+    private GameObject selectedPlatform;
+
     //statsStorage
     public StatsHolder stats;
+
+    //buildingButton
+    public BuildingButton buildingButton;
 
     //building stats
     public GameObject buildingStats;
@@ -52,33 +60,36 @@ public class BuildingSelection : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //he has clicked on the building, create sphere
-                    if(firstTime)
+                    onBuildingClick(hitData.transform.gameObject);
+                }
+            } else if(hitData.transform.gameObject.tag == "Platform")
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    if(hitData.transform.gameObject.GetComponent<PlatformBehaviour>().isOccupied())
                     {
-                        sphereScript = hitData.transform.gameObject.GetComponent<BuildingCollision>();
-                        sphereScript.CreateSphere();
-                        buildingStats.SetActive(true);
-                        ToggleStats(hitData.transform.gameObject);
-                        selected = hitData.transform.gameObject;
-                        firstTime = false;
+                        GameObject data = hitData.transform.gameObject.GetComponent<PlatformBehaviour>().getBuilding();
+                        onBuildingClick(data);
                     } else
                     {
-                        sphereScript.DeleteSphere();
-                        buildingStats.SetActive(false);
-                        sphereScript = hitData.transform.gameObject.GetComponent<BuildingCollision>();
-                        sphereScript.CreateSphere();
-                        buildingStats.SetActive(true);
-                        ToggleStats(hitData.transform.gameObject);
-                        selected = hitData.transform.gameObject;
+                        platformButtons.SetActive(false);
+                        buildingButtons.SetActive(true);
+                        selectedPlatform = hitData.transform.gameObject;
                     }
                 }
-            } else
+                
+            }
+            else
             {
                 if (Input.GetMouseButtonDown(0) && !firstTime && !hoverUpgrade)
                 {
                     sphereScript.DeleteSphere();
-                    buildingStats.SetActive(false);
                 }
+                if (Input.GetMouseButton(0) && !buildingButton.hovered)
+                {
+                    switchToPlatformState();
+                }
+
             }
         }
         else
@@ -88,6 +99,33 @@ public class BuildingSelection : MonoBehaviour
                 sphereScript.DeleteSphere();
                 buildingStats.SetActive(false);
             }
+            if (Input.GetMouseButton(0) && !buildingButton.hovered)
+            {
+                switchToPlatformState();
+            }
+        }
+    }
+
+    void onBuildingClick(GameObject building)
+    {
+        if (firstTime)
+        {
+            sphereScript = building.GetComponent<BuildingCollision>();
+            sphereScript.CreateSphere();
+            buildingStats.SetActive(true);
+            ToggleStats(building);
+            selected = building;
+            firstTime = false;
+        }
+        else
+        {
+            sphereScript.DeleteSphere();
+            buildingStats.SetActive(false);
+            sphereScript = building.GetComponent<BuildingCollision>();
+            sphereScript.CreateSphere();
+            buildingStats.SetActive(true);
+            ToggleStats(building);
+            selected = building;
         }
     }
 
@@ -223,5 +261,14 @@ public class BuildingSelection : MonoBehaviour
                 return false;
             }
         }
+    }
+    public GameObject getPlatform()
+    {
+        return selectedPlatform;
+    }
+    public void switchToPlatformState()
+    {
+        platformButtons.SetActive(true);
+        buildingButtons.SetActive(false);
     }
 }

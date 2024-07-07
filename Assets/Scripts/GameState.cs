@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
     public GameObject healthbar;
+    public GameObject win;
+    public GameObject lose;
+    public static bool wonLastGame;
     private RectTransform healthBarTransform;
+    public Animator crossfadeTransition;
 
     public TMP_Text healthText;
 
     [SerializeField] private float maxHealth;
     public float health;
 
-    bool isPlaying = true;
-    bool isDead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +31,7 @@ public class GameState : MonoBehaviour
         UpdateHealthBar();
         if(health <= 0)
         {
-            EndGame();
+            StartCoroutine(EndGame());
         }
     }
     void UpdateHealthBar()
@@ -39,12 +42,19 @@ public class GameState : MonoBehaviour
 
         healthText.SetText(health.ToString() + " / " + maxHealth.ToString());
     }
-    void EndGame()
+    public IEnumerator EndGame()
     {
         //TODO end screen
-        isPlaying = false;
-        isDead = true;
-        print("YOU DIED");
+        lose.SetActive(true);
+        wonLastGame = false;
+        yield return new WaitForSeconds(3f);
+        lose.SetActive(false);
+        crossfadeTransition.SetBool("Start", true);
+        SceneManager.LoadScene("StartMenu");
+        yield return new WaitForSeconds(1f);
+        crossfadeTransition.SetBool("End", true);
+        crossfadeTransition.SetBool("Start", false);
+        yield return null;
     }
     public void setHealth(float newHealth)
     {
@@ -53,6 +63,20 @@ public class GameState : MonoBehaviour
     public float getHealth()
     {
         return health;
+    }
+    public IEnumerator WinGame()
+    {
+        //TODO end screen
+        win.SetActive(true);
+        wonLastGame = true;
+        yield return new WaitForSeconds(3f);
+        win.SetActive(false);
+        crossfadeTransition.SetBool("Start", true);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("StartMenu");
+        crossfadeTransition.SetBool("End", true);
+        crossfadeTransition.SetBool("Start", false);
+        yield return null;
     }
 
 }

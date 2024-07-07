@@ -7,12 +7,15 @@ using TMPro;
 public class SpawnEnemy : MonoBehaviour
 {
     public GameObject defaultEnemy;
+    public GameState gameState;
+    public static int storyLevel; //from 1 - 10, put 0 if its infinite mode and -1 for tutorial
     public int wave = 1; //will need to design an enemy spawn system
     private Transform[] spawnPositions;
     public TMP_Text waveText;
 
     private void Start()
     {
+        print(storyLevel);
         spawnPositions = GetComponentsInChildren<Transform>();
         for(int i = 0; i < spawnPositions.Length; i++)
         {
@@ -39,11 +42,44 @@ public class SpawnEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         yield return startGame();
-        waveText.SetText("Wave: 1");
-        spawnEnemies(5, defaultEnemy);
-        yield return waitWaveFinish();
-        yield return startWave();
-        waveText.SetText("Wave: 2");
+
+        switch (storyLevel)
+        {
+            case 0:
+                yield return new WaitForSeconds(60f);
+                break;
+            case 1:
+                waveText.SetText("Wave: 1");
+                spawnEnemies(5, defaultEnemy, true);
+                yield return waitWaveFinish();
+                yield return startWave();
+                waveText.SetText("Wave: 2");
+                spawnEnemies(10, defaultEnemy, false);
+                yield return waitWaveFinish();
+                yield return startWave(); 
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+        }
+
+        yield return gameState.WinGame();
+        yield return null;
     }
 
     IEnumerator wait(float waitTime)
@@ -85,12 +121,22 @@ public class SpawnEnemy : MonoBehaviour
         yield return new WaitForSeconds(1);
         yield return null;
     }
-    void spawnEnemies(int num, GameObject enemy)
+    void spawnEnemies(int num, GameObject enemy, bool up)
     {
-        for(int i = 0; i < num; i ++)
+        if (up)
         {
-            Instantiate(enemy, spawnPositions[UnityEngine.Random.Range(0, 8)].position, Quaternion.identity);
+            for (int i = 0; i < num; i++)
+            {
+                Instantiate(enemy, spawnPositions[UnityEngine.Random.Range(0, 4)].position, Quaternion.identity);
+            }
+        } else
+        {
+            for (int i = 0; i < num; i++)
+            {
+                Instantiate(enemy, spawnPositions[UnityEngine.Random.Range(4, 8)].position, Quaternion.identity);
+            }
         }
+        
     }
     bool checkForNoEnemies()
     {

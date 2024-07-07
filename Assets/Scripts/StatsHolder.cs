@@ -16,6 +16,8 @@ public class StatsHolder : MonoBehaviour
     public GameObject hydrogenTurret1;
     public GameObject heliumGen1;
     public GameObject hydroGen1;
+    public GameObject hydroPlat1;
+    public GameObject heliumPlat1;
 
 
     public Dictionary<string, Dictionary<string, object>> buidlings = new();
@@ -83,6 +85,30 @@ public class StatsHolder : MonoBehaviour
             ["upgrade"] = "MAX"
         };
         buidlings.Add("Helium Generator", stats);
+        //hydro Platform
+        stats = new()
+        {
+            ["damage"] = 0,
+            ["range"] = 0,
+            ["cooldown"] = 0,
+            ["cost"] = 5,
+            ["object"] = hydroPlat1,
+            ["currency"] = "h",
+            ["upgrade"] = "MAX"
+        };
+        buidlings.Add("Hydrogen Platform", stats);
+        //helium Platform
+        stats = new()
+        {
+            ["damage"] = 0,
+            ["range"] = 0,
+            ["cooldown"] = 0,
+            ["cost"] = 5,
+            ["object"] = heliumPlat1,
+            ["currency"] = "he",
+            ["upgrade"] = "MAX"
+        };
+        buidlings.Add("Helium Platform", stats);
     }
 
     private void Update()

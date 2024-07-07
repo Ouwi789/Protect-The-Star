@@ -13,7 +13,6 @@ public class BuildingCollision : MonoBehaviour
     public int upgradeState = 1;
     private Vector3 placePos;
     public GameObject sun;
-    private bool inOrbit;
     private Rigidbody rb;
 
     private void Awake()
@@ -29,43 +28,16 @@ public class BuildingCollision : MonoBehaviour
         {
             isFake = true;
             colorGreen(gameObject);
-        } else
+        }
+        if(gameObject.tag == "Building")
         {
-            isFake = false;
-            placePos = addDistance(sun.transform, gameObject.transform);
-            print(placePos);
+            moveBuilding();
         }
     }
 
     private void FixedUpdate()
     {
-        if (!isFake)
-        {
-             if(!checkDistance(transform.position, placePos))
-             {
-                inOrbit = false;
-                Vector3 currentPos = transform.position;
-                Vector3 direction = placePos - currentPos;
-                direction.Normalize();
-                rb.MovePosition(currentPos + (10f * Time.fixedDeltaTime * direction));
-             }
-             else
-             {
-                 if (!inOrbit)
-                 {
-                    inOrbit = true;
-                    transform.parent = sun.transform;
-                 }
-             }
-        }
-    }
 
-    private bool checkDistance(Vector3 currPos, Vector3 targetPos) {
-        if(Mathf.Abs(currPos.x - targetPos.x) < 0.2 && Mathf.Abs(currPos.y - targetPos.y) < 0.2 && Mathf.Abs(currPos.z - targetPos.z) < 0.2)
-        {
-            return true;
-        }
-        return false;
     }
 
 
@@ -126,13 +98,13 @@ public class BuildingCollision : MonoBehaviour
     {
         sphere.SetActive(false);
     }
-
-    public Vector3 addDistance(Transform originPos, Transform currPos)
+    public void moveBuilding()
     {
-        float x = currPos.position.x - (originPos.position.x - currPos.position.x);
-        float y = currPos.position.y - (originPos.position.y - currPos.position.y);
-        float z = currPos.position.z - (originPos.position.z - currPos.position.z);
-        return new Vector3(x, y, z);
+        float xPos = gameObject.transform.position.x + (gameObject.transform.position.x - sun.transform.position.x) *0.05f;
+        float yPos = gameObject.transform.position.y + (gameObject.transform.position.y - sun.transform.position.y) *0.05f;
+        float zPos = gameObject.transform.position.z + (gameObject.transform.position.z - sun.transform.position.z) *0.05f;
+        Vector3 position = new(xPos, yPos, zPos);
+        rb.position = position;
     }
 
 }

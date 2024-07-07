@@ -11,6 +11,15 @@ public class MenuScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public GameObject storyMenu;
     public Animator crossfadeTransition;
 
+    public void Update()
+    {
+        if(GameState.wonLastGame)
+        {
+            print("GIVE REWARDS THROUGH UI");
+            GameState.wonLastGame = false;
+        }
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (gameObject.tag == "Story")
