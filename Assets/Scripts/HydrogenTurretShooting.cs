@@ -30,6 +30,7 @@ public class HydrogenTurretShooting : MonoBehaviour
             {
                 if (hitCollider.tag == "Enemy")
                 {
+                    hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage);
                     GameObject temp = Instantiate(bullet, transform.position, Quaternion.identity);
                     temp.GetComponent<BulletScript>().damage = damage;
                     reloadCounter = 0f;

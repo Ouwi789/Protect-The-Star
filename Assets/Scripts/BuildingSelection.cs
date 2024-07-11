@@ -11,7 +11,8 @@ public class BuildingSelection : MonoBehaviour
 
     //button UI (platform / buidling)
     public GameObject platformButtons;
-    public GameObject buildingButtons;
+    public GameObject hydrogenBuildingButtons;
+    public GameObject heliumBuildingButtons;
     private GameObject selectedPlatform;
 
     //statsStorage
@@ -73,8 +74,14 @@ public class BuildingSelection : MonoBehaviour
                     } else
                     {
                         platformButtons.SetActive(false);
-                        buildingButtons.SetActive(true);
                         selectedPlatform = hitData.transform.gameObject;
+                        if(selectedPlatform.GetComponent<PlatformBehaviour>().isHydrogen())
+                        {
+                            hydrogenBuildingButtons.SetActive(true);
+                        } else
+                        {
+                            heliumBuildingButtons.SetActive(true);
+                        }
                     }
                 }
                 
@@ -269,6 +276,7 @@ public class BuildingSelection : MonoBehaviour
     public void switchToPlatformState()
     {
         platformButtons.SetActive(true);
-        buildingButtons.SetActive(false);
+        hydrogenBuildingButtons.SetActive(false);
+        heliumBuildingButtons.SetActive(false);
     }
 }

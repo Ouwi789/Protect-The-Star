@@ -188,7 +188,7 @@ public class BuildingButton : MonoBehaviour
         {
             if (!tempHydrogenPlatformPlaced)
             {
-                tempHydrogenPlatform = createTempBuilding(hydrogenPlatform);
+                tempHydrogenPlatform = createTempPlatform(hydrogenPlatform);
                 tempHydrogenPlatformPlaced = true;
             }
             else
@@ -207,6 +207,7 @@ public class BuildingButton : MonoBehaviour
                     GameObject temp = Instantiate(hydrogenPlatform, tempHydrogenPlatform.transform.position, tempHydrogenPlatform.transform.rotation);
                     stats.setHydrogen(stats.getHydrogen() - stats.getCost("Hydrogen Platform"));
                     temp.tag = "Platform";
+                    temp.GetComponent<PlatformBehaviour>().setToHydrogen(true);
                     Destroy(tempHydrogenPlatform);
                     hydrogenPlatformPlacing = false;
                     tempHydrogenPlatformPlaced = false;
@@ -218,7 +219,7 @@ public class BuildingButton : MonoBehaviour
         {
             if (!tempHeliumPlatformPlaced)
             {
-                tempHeliumPlatform = createTempBuilding(heliumPlatform);
+                tempHeliumPlatform = createTempPlatform(heliumPlatform);
                 tempHeliumPlatformPlaced = true;
             }
             else
@@ -237,6 +238,7 @@ public class BuildingButton : MonoBehaviour
                     GameObject temp = Instantiate(heliumPlatform, tempHeliumPlatform.transform.position, tempHeliumPlatform.transform.rotation);
                     stats.setHelium(stats.getHelium() - stats.getCost("Helium Platform"));
                     temp.tag = "Platform";
+                    temp.GetComponent<PlatformBehaviour>().setToHydrogen(false);
                     Destroy(tempHeliumPlatform);
                     heliumPlatformPlacing = false;
                     tempHeliumPlatformPlaced = false;
@@ -316,9 +318,8 @@ public class BuildingButton : MonoBehaviour
     {
         costTextObject.SetActive(true);
         costText.SetText("Helium: " + stats.getCost("Helium Turret"));
-        tempTurret = createTempBuilding(turret);
+        tempTurret = createTempBuilding(turret, platformSelector.getPlatform());
         tempTurretPlaced = true;
-        moveTempBuilding(tempTurret, platformSelector.getPlatform());
         hovered = true;
     }
 
@@ -326,9 +327,8 @@ public class BuildingButton : MonoBehaviour
     {
         costTextObject.SetActive(true);
         costText.SetText("Hydrogen: " + stats.getCost("Hydrogen Turret"));
-        temphydrogenTurret = createTempBuilding(hydrogenTurret);
+        temphydrogenTurret = createTempBuilding(hydrogenTurret, platformSelector.getPlatform());
         temphydrogenTurretPlaced = true;
-        moveTempBuilding(temphydrogenTurret, platformSelector.getPlatform());
         hovered = true;
     }
 
@@ -336,9 +336,8 @@ public class BuildingButton : MonoBehaviour
     {
         costTextObject.SetActive(true);
         costText.SetText("Hydrogen: " + stats.getCost("Hydrogen Generator"));
-        tempHydroGen = createTempBuilding(hydroGen);
+        tempHydroGen = createTempBuilding(hydroGen, platformSelector.getPlatform());
         tempHydroGenPlaced = true;
-        moveTempBuilding(tempHydroGen, platformSelector.getPlatform());
         hovered = true;
     }
 
@@ -346,9 +345,8 @@ public class BuildingButton : MonoBehaviour
     {
         costTextObject.SetActive(true);
         costText.SetText("Helium: " + stats.getCost("Helium Generator"));
-        tempHeliumGen = createTempBuilding(heliumGen);
+        tempHeliumGen = createTempBuilding(heliumGen, platformSelector.getPlatform());
         tempHeliumGenPlaced = true;
-        moveTempBuilding(tempHeliumGen, platformSelector.getPlatform());
         hovered = true;
     }
 
@@ -383,26 +381,22 @@ public class BuildingButton : MonoBehaviour
         return !(turretPlacing || hydroGenPlacing || heliumGenPlacing || hydrogenTurretPlacing || heliumPlatformPlacing || hydrogenPlatformPlacing);
     }
 
-    private GameObject createBuilding(GameObject building)
+    private GameObject createTempPlatform(GameObject building)
     {
         //TODO get mouse pos
 
         GameObject temp = Instantiate(building, Vector3.zero, Quaternion.identity);
-        return temp;
-        
-    }
-    private GameObject createTempBuilding (GameObject building)
-    {
-        GameObject temp = createBuilding(building);
         temp.tag = "Fake";
         canPlace = temp.GetComponent<BuildingCollision>().canPlace;
         return temp;
+        
     }
-    private void moveTempBuilding(GameObject building, GameObject platform)
+    private GameObject createTempBuilding (GameObject building, GameObject platform)
     {
-        building.transform.position = platform.transform.position;
-        building.transform.LookAt(centreOfSphere);
-        building.transform.rotation *= Quaternion.Euler(-90, 0, 0);
+        GameObject temp = Instantiate(building, platform.transform.position, platform.transform.rotation);
+        temp.tag = "Fake";
+        canPlace = temp.GetComponent<BuildingCollision>().canPlace;
+        return temp;
     }
     private void moveTempPlatform(GameObject building)
     {

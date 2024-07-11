@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyMovement : MonoBehaviour
+public abstract class EnemyBehaviour : MonoBehaviour
 {
-    private Rigidbody rb;
+    protected Rigidbody rb;
 
-    private GameObject gameController;
-    private GameState healthScript;
+    protected GameObject gameController;
+    protected GameState healthScript;
 
-    private GameObject sun;
-    private Vector3 targetPosition;
+    protected GameObject sun;
+    protected Vector3 targetPosition;
 
-    private HealthBar healthCanvas;
+    protected HealthBar healthCanvas;
+
     
-    [SerializeField] private float maxHealth;
-    public float health;
-    [SerializeField] private float speed;
+    [SerializeField] protected int maxHealth;
+    public int health;
+    [SerializeField] protected float speed;
     // Start is called before the first frame update
 
     private void Awake()
@@ -25,8 +26,9 @@ public class EnemyMovement : MonoBehaviour
         health = maxHealth;
     }
 
-    void Start()
+    public virtual void enemySetup()
     {
+        health = maxHealth;
         rb = GetComponent<Rigidbody>();
         gameController = GameObject.FindGameObjectWithTag("GameController");
         sun = GameObject.FindGameObjectWithTag("Sun");
@@ -36,9 +38,10 @@ public class EnemyMovement : MonoBehaviour
         healthCanvas.updateHealthBar(maxHealth, health);
     }
 
-    void Update()
+
+    public virtual void updateHealth()
     {
-        if(healthCanvas)
+        if (healthCanvas)
         {
             healthCanvas.updateHealthBar(maxHealth, health);
         }
@@ -47,8 +50,8 @@ public class EnemyMovement : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void FixedUpdate()
+    //default movement is kamikaze
+    public virtual void moveEnemy()
     {
         Vector3 currentPos = transform.position;
         Vector3 direction = targetPosition - currentPos;
@@ -57,16 +60,26 @@ public class EnemyMovement : MonoBehaviour
         rb.MovePosition(currentPos + (speed * Time.fixedDeltaTime * direction));
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void onHit(Collider other)
     {
-        if(other.tag == "Building" || other.tag == "Sun")
+        if (other.tag == "Building" || other.tag == "Sun")
         {
-            healthScript.setHealth(healthScript.getHealth() - health);
             Destroy(gameObject);
         }
     }
-    public Transform getPosition()
+
+    public virtual void setHealth(int health)
+    {
+        this.health = health;
+    }
+
+    public virtual Transform getPosition()
     {
         return transform;
+    }
+    //defual attack is kamikaze
+    public virtual void Attack()
+    {
+        healthScript.setHealth(healthScript.getHealth() - health);
     }
 }

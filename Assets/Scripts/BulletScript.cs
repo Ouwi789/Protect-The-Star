@@ -17,6 +17,10 @@ public class BulletScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         FindEnemy();
+        if (enemyTarget == null)
+        {
+            Destroy(gameObject);
+        }
     }
     private void Update()
     {
@@ -27,8 +31,16 @@ public class BulletScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        enemyPos = enemyTarget.GetComponent<EnemyMovement>().getPosition();
+        if (enemyTarget == null)
+        {
+            Destroy(gameObject);
+        }
+        enemyPos = enemyTarget.GetComponent<EnemyBehaviour>().getPosition();
         Vector3 currPos = transform.position;
+        if(Vector3.Distance(currPos, enemyPos.position) <= 0.5f)
+        {
+            Destroy(gameObject);
+        }
         Vector3 direction = enemyPos.position - currPos;
         direction.Normalize();
         rb.MovePosition(currPos + (speed * Time.fixedDeltaTime * direction));
@@ -56,7 +68,7 @@ public class BulletScript : MonoBehaviour
             {
                 temp = distance;
                 enemyTarget = enemy;
-                enemyPos = enemyTarget.GetComponent<EnemyMovement>().getPosition();
+                enemyPos = enemyTarget.GetComponent<EnemyBehaviour>().getPosition();
             }
         }
     }

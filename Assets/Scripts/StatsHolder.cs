@@ -29,7 +29,7 @@ public class StatsHolder : MonoBehaviour
         Dictionary<string, object> stats = new()
         {
             ["damage"] = 5,
-            ["range"] = 15f,
+            ["range"] = 35f,
             ["cooldown"] = 5f,
             ["cost"] = 5,
             ["object"] = heliumTurret1,
@@ -41,7 +41,7 @@ public class StatsHolder : MonoBehaviour
         stats = new()
         {
             ["damage"] = 8,
-            ["range"] = 20f,
+            ["range"] = 40f,
             ["cooldown"] = 3.5f,
             ["cost"] = 10,
             ["object"] = heliumTurret2,
@@ -53,7 +53,7 @@ public class StatsHolder : MonoBehaviour
         stats = new()
         {
             ["damage"] = 10,
-            ["range"] = 30f,
+            ["range"] = 50f,
             ["cooldown"] = 8f,
             ["cost"] = 6,
             ["object"] = hydrogenTurret1,
