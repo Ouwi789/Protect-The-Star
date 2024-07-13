@@ -15,12 +15,13 @@ public class GameState : MonoBehaviour
 
     public TMP_Text healthText;
 
-    [SerializeField] private float maxHealth;
+    private float maxHealth;
     public float health;
 
     // Start is called before the first frame update
     void Start()
     {
+        maxHealth = StatsHolder.health;
         health = maxHealth;
         healthBarTransform = healthbar.GetComponent<RectTransform>();
     }

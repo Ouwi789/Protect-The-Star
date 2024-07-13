@@ -40,11 +40,18 @@ public class TurretShooting : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, hitLayers);
             foreach (var hitCollider in hitColliders)
             {
-                if(hitCollider.tag == "Enemy")
+                if (hitCollider.tag == "Enemy")
                 {
-                    hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage);
+                    if (hitCollider.GetComponent<EnemySuicideBehaviour>() != null)
+                    {
+                        hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth((int)(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage * StatsHolder.attackMultiplier * StatsHolder.attackMeleeMultiplier));
+                    }
+                    else
+                    {
+                        hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth((int)(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage * StatsHolder.attackMultiplier * StatsHolder.attackRangedMultiplier));
+                    }
+
                     GameObject temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                    temp.GetComponent<BulletScript>().damage = damage;
                     reloadCounter = 0f;
                 }
             }

@@ -12,10 +12,10 @@ public class SpawnEnemy : MonoBehaviour
     public int wave = 1; //will need to design an enemy spawn system
     private Transform[] spawnPositions;
     public TMP_Text waveText;
+    public StatsHolder stats;
 
     private void Start()
     {
-        print(storyLevel);
         spawnPositions = GetComponentsInChildren<Transform>();
         for(int i = 0; i < spawnPositions.Length; i++)
         {
@@ -113,6 +113,9 @@ public class SpawnEnemy : MonoBehaviour
     }
     IEnumerator startWave()
     {
+        gameState.setHealth(gameState.getHealth() + StatsHolder.regen);
+        stats.setHelium(stats.getHelium() + StatsHolder.heliumGain);
+        stats.setHydrogen(stats.getHydrogen() + StatsHolder.hydrogenGain);
         waveText.SetText("Next Wave Starting In 3 ...");
         yield return new WaitForSeconds(1);
         waveText.SetText("Next Wave Starting In 2 ...");

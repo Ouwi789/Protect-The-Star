@@ -20,6 +20,5 @@ public class StoryButton : MonoBehaviour
         SpawnEnemy.storyLevel = level;
         SceneManager.LoadScene("Gameplay");
         crossfadeTransition.SetBool("End", true);
-        crossfadeTransition.SetBool("Start", false);
     }
 }

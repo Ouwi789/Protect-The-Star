@@ -30,9 +30,16 @@ public class HydrogenTurretShooting : MonoBehaviour
             {
                 if (hitCollider.tag == "Enemy")
                 {
-                    hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage);
+                    if (hitCollider.GetComponent<EnemySuicideBehaviour>() != null)
+                    {
+                        hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth((int)(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage * StatsHolder.attackMultiplier * StatsHolder.attackMeleeMultiplier));
+                    }
+                    else
+                    {
+                        hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth((int)(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage * StatsHolder.attackMultiplier * StatsHolder.attackRangedMultiplier));
+                    }
+
                     GameObject temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                    temp.GetComponent<BulletScript>().damage = damage;
                     reloadCounter = 0f;
                 }
             }

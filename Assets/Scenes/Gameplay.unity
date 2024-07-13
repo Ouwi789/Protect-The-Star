@@ -4590,7 +4590,6 @@ MonoBehaviour:
   lose: {fileID: 98620523}
   crossfadeTransition: {fileID: 2128645254}
   healthText: {fileID: 1283228935}
-  maxHealth: 500
   health: 0
 --- !u!114 &1685247828
 MonoBehaviour:
@@ -4608,6 +4607,7 @@ MonoBehaviour:
   gameState: {fileID: 1685247827}
   wave: 1
   waveText: {fileID: 211098012}
+  stats: {fileID: 1685247826}
 --- !u!114 &1685247829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5603,7 +5603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6403604750311209428, guid: 892c3c569afcf488098f98b7a7ce0b41, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

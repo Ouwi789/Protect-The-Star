@@ -80,6 +80,6 @@ public abstract class EnemyBehaviour : MonoBehaviour
     //defual attack is kamikaze
     public virtual void Attack()
     {
-        healthScript.setHealth(healthScript.getHealth() - health);
+        healthScript.setHealth(healthScript.getHealth() - (health * (StatsHolder.defence/200)));
     }
 }

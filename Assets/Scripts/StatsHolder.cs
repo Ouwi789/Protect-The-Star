@@ -19,8 +19,32 @@ public class StatsHolder : MonoBehaviour
     public GameObject hydroPlat1;
     public GameObject heliumPlat1;
 
+    //Items
+    public static int xp = 200;
+    public static int coins = 200;
 
+    //Upgrades
+    public static float attackMultiplier = 1;
+    public static float attackRangedMultiplier = 1;
+    public static float attackMeleeMultiplier = 1;
+
+    public static int health = 100;
+    public static int regen = 0;
+    public static int defence = 0;
+
+    public static float coinMultiplier = 1;
+    public static float xpMultiplier = 1;
+
+    public static int hydrogenGain = 0;
+    public static int heliumGain = 0;
+
+    public static int hydrogenDiscount = 0;
+    public static int heliumDiscount = 0;
+
+    //Tower and Reward Mapping
     public Dictionary<string, Dictionary<string, object>> buidlings = new();
+    public static Dictionary<int, Dictionary<string, int>> rewardsForEachLevel = new();
+    private static bool rewardsMapped = false;
 
     private void Awake()
     {
@@ -109,6 +133,29 @@ public class StatsHolder : MonoBehaviour
             ["upgrade"] = "MAX"
         };
         buidlings.Add("Helium Platform", stats);
+        Dictionary<string, int> tempLevel = new()
+        {
+            ["xp"] = 5,
+            ["coins"] = 5
+        };
+        if(!rewardsMapped)
+        {
+            //-1 is tutorial and 0 is infinite
+            rewardsForEachLevel.Add(-1, tempLevel);
+            rewardsForEachLevel.Add(0, tempLevel);
+            rewardsForEachLevel.Add(1, tempLevel);
+            //TODO add appropriate rewards to each story level so that the game is balanced
+            rewardsForEachLevel.Add(2, tempLevel);
+            rewardsForEachLevel.Add(3, tempLevel);
+            rewardsForEachLevel.Add(4, tempLevel);
+            rewardsForEachLevel.Add(5, tempLevel);
+            rewardsForEachLevel.Add(6, tempLevel);
+            rewardsForEachLevel.Add(7, tempLevel);
+            rewardsForEachLevel.Add(8, tempLevel);
+            rewardsForEachLevel.Add(9, tempLevel);
+            rewardsForEachLevel.Add(10, tempLevel);
+            rewardsMapped = true;
+        }
     }
 
     private void Update()

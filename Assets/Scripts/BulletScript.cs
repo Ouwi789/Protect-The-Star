@@ -11,7 +11,6 @@ public class BulletScript : MonoBehaviour
     private float lifetime = 5f;
     private float counter = 0f;
     [SerializeField] private float speed;
-    public int damage;
     // Start is called before the first frame update
     void Start()
     {

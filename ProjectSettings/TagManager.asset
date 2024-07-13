@@ -13,6 +13,13 @@ TagManager:
   - Infinite
   - Tutorial
   - Platform
+  - Upgrades
+  - Towers
+  - Home
+  - Info
+  - InfoD
+  - InfoH
+  - InfoL
   layers:
   - Default
   - TransparentFX

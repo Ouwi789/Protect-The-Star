@@ -7,15 +7,23 @@ using UnityEngine.EventSystems;
 public class MenuScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public TMP_Text helperText;
+    public TMP_Text coinText;
+    public TMP_Text xpText;
     public GameObject startMenu;
     public GameObject storyMenu;
     public Animator crossfadeTransition;
+    private void Awake()
+    {
+        UpdateStats();
+    }
 
     public void Update()
     {
+        UpdateStats();
         if(GameState.wonLastGame)
         {
-            print("GIVE REWARDS THROUGH UI");
+            StatsHolder.xp += (int) (StatsHolder.rewardsForEachLevel[SpawnEnemy.storyLevel]["xp"] * StatsHolder.xpMultiplier);
+            StatsHolder.coins += (int) (StatsHolder.rewardsForEachLevel[SpawnEnemy.storyLevel]["coins"] * StatsHolder.coinMultiplier);
             GameState.wonLastGame = false;
         }
     }
@@ -48,19 +56,24 @@ public class MenuScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             helperText.SetText("");
         }
     }
+    private void UpdateStats()
+    {
+        coinText.SetText(StatsHolder.coins.ToString());
+        xpText.SetText(StatsHolder.xp.ToString());
+    }
     public void SwitchToStory()
     {
         StartCoroutine(StoryMenu());
     }
     IEnumerator StoryMenu()
     {
+        crossfadeTransition.SetBool("End", false);
         crossfadeTransition.SetBool("Start", true);
         yield return new WaitForSeconds(1f);
         startMenu.SetActive(false);
         storyMenu.SetActive(true);
         crossfadeTransition.SetBool("End", true);
         crossfadeTransition.SetBool("Start", false);
-        yield return new WaitForSeconds(1);
-        crossfadeTransition.SetBool("Start", false);
+        yield return new WaitForSeconds(1f);
     }
 }
