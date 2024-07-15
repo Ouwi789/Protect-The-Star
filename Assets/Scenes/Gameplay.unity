@@ -4516,7 +4516,7 @@ MonoBehaviour:
   heliumPlatform: {fileID: 3145304081009441564, guid: b5b9fe351531f42f99906717d8b417b8, type: 3}
   hydrogenPlatform: {fileID: 349981646132204746, guid: d3114ebf90e704fcda197a4b7ef85f27, type: 3}
   turret: {fileID: 4287993245133193887, guid: d3e485f19100a499b96775868d9c3b14, type: 3}
-  hydrogenTurret: {fileID: 3155194821534788890, guid: 3394f2edf2b0340e0bf76a75a630e95b, type: 3}
+  hydrogenTurret: {fileID: 7159178455209938927, guid: 4093490d81a144ea4b074c9e5c575117, type: 3}
   hydroGen: {fileID: 817029923971246465, guid: 73407fef376014120af9f180b8cbd01c, type: 3}
   heliumGen: {fileID: 7587592867444956457, guid: c827acb65dc13422f8d534070dec02ef, type: 3}
   screenPosition: {x: 0, y: 0, z: 0}
@@ -4564,11 +4564,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hydrogenCount: {fileID: 1595768276}
   heliumCount: {fileID: 296373722}
-  hydrogenAmount: 20
-  heliumAmount: 20
+  hydrogenAmount: 2000
+  heliumAmount: 2000
   heliumTurret1: {fileID: 4287993245133193887, guid: d3e485f19100a499b96775868d9c3b14, type: 3}
   heliumTurret2: {fileID: 8212403724902219527, guid: 4d257b308e23d46e5ad71f2207d2ecb0, type: 3}
-  hydrogenTurret1: {fileID: 3155194821534788890, guid: 3394f2edf2b0340e0bf76a75a630e95b, type: 3}
+  heliumTurret3: {fileID: 1182843350820522666, guid: b13a99370678444e7860cff740406400, type: 3}
+  heliumTurret4: {fileID: 8432628473617653481, guid: 6414a2a615ee34ddfa38932c23ccf6ef, type: 3}
+  heliumTurret5: {fileID: 7748930379306684120, guid: 82e82d596ec8f49dc82971914cbebe35, type: 3}
+  hydrogenTurret1: {fileID: 7159178455209938927, guid: 4093490d81a144ea4b074c9e5c575117, type: 3}
+  hydrogenTurret2: {fileID: 2594143745936921613, guid: e03588adf9074479b9146e7cdbceaf65, type: 3}
+  hydrogenTurret3: {fileID: 685720417800853733, guid: bd58766e1273e4e1b94e6a08e41bbdd7, type: 3}
+  hydrogenTurret4: {fileID: 5617281821336560541, guid: 62ae186b5873947beafb347d8f187e26, type: 3}
+  hydrogenTurret5: {fileID: 7030660668014790047, guid: 4c23126b3ff334ee8b71b6f4d4403737, type: 3}
   heliumGen1: {fileID: 7587592867444956457, guid: c827acb65dc13422f8d534070dec02ef, type: 3}
   hydroGen1: {fileID: 817029923971246465, guid: 73407fef376014120af9f180b8cbd01c, type: 3}
   hydroPlat1: {fileID: 349981646132204746, guid: d3114ebf90e704fcda197a4b7ef85f27, type: 3}
@@ -4779,6 +4786,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722090334}
   m_CullTransparentMesh: 1
+--- !u!1001 &1746035043
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5254503357896550108, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_Name
+      value: Tank Kamikaze
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -101.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 69.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438730787307732334, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7ef97fcc368aa42fbb2da44e86e48244, type: 3}
 --- !u!1 &1757495837
 GameObject:
   m_ObjectHideFlags: 0
@@ -5749,3 +5813,4 @@ SceneRoots:
   - {fileID: 2047409672}
   - {fileID: 632845457}
   - {fileID: 1685247825}
+  - {fileID: 1746035043}

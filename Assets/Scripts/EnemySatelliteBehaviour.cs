@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySatelliteBehaviour : EnemyBehaviour
 {
     private bool canShoot;
-    private float reloadTime;
+    [SerializeField] private float reloadTime;
     private float reloadCounter;
     [SerializeField] private int damage;
     public Animator enemyAnimator;
@@ -14,7 +14,6 @@ public class EnemySatelliteBehaviour : EnemyBehaviour
     {
         enemySetup();
         canShoot = false;
-        reloadTime = 12f;
         reloadCounter = 0f;
     }
 

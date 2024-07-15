@@ -115,24 +115,27 @@ public class BuildingSelection : MonoBehaviour
 
     void onBuildingClick(GameObject building)
     {
-        if (firstTime)
+        if(building != null)
         {
-            sphereScript = building.GetComponent<BuildingCollision>();
-            sphereScript.CreateSphere();
-            buildingStats.SetActive(true);
-            ToggleStats(building);
-            selected = building;
-            firstTime = false;
-        }
-        else
-        {
-            sphereScript.DeleteSphere();
-            buildingStats.SetActive(false);
-            sphereScript = building.GetComponent<BuildingCollision>();
-            sphereScript.CreateSphere();
-            buildingStats.SetActive(true);
-            ToggleStats(building);
-            selected = building;
+            if (firstTime)
+            {
+                sphereScript = building.GetComponent<BuildingCollision>();
+                sphereScript.CreateSphere();
+                buildingStats.SetActive(true);
+                ToggleStats(building);
+                selected = building;
+                firstTime = false;
+            }
+            else
+            {
+                sphereScript.DeleteSphere();
+                buildingStats.SetActive(false);
+                sphereScript = building.GetComponent<BuildingCollision>();
+                sphereScript.CreateSphere();
+                buildingStats.SetActive(true);
+                ToggleStats(building);
+                selected = building;
+            }
         }
     }
 

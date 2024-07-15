@@ -14,6 +14,8 @@ public class TurretShooting : MonoBehaviour
     private float reloadTime;
     private float reloadCounter = 0f;
 
+    [SerializeField] bool forShow;
+
     private void Awake()
     {
         string name = "Helium Turret";
@@ -28,34 +30,37 @@ public class TurretShooting : MonoBehaviour
         {
             name += " " + upgradeStat.upgradeState;
         }
-        damage = (int) stats.buidlings[name]["damage"];
+        damage = (int) stats.buidlings[name]["damage"] / upgradeStat.upgradeState;
         reloadTime = (float)stats.buidlings[name]["cooldown"];
         range = (float)stats.buidlings[name]["range"];
     }
 
     void Update()
     {
-        if(reloadCounter >= reloadTime)
+        if (!forShow)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, hitLayers);
-            foreach (var hitCollider in hitColliders)
+            if (reloadCounter >= reloadTime)
             {
-                if (hitCollider.tag == "Enemy")
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, hitLayers);
+                foreach (var hitCollider in hitColliders)
                 {
-                    if (hitCollider.GetComponent<EnemySuicideBehaviour>() != null)
+                    if (hitCollider.tag == "Enemy")
                     {
-                        hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth((int)(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage * StatsHolder.attackMultiplier * StatsHolder.attackMeleeMultiplier));
-                    }
-                    else
-                    {
-                        hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth((int)(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage * StatsHolder.attackMultiplier * StatsHolder.attackRangedMultiplier));
-                    }
+                        if (hitCollider.GetComponent<EnemySuicideBehaviour>() != null)
+                        {
+                            hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth((int)(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage * StatsHolder.attackMultiplier * StatsHolder.attackMeleeMultiplier));
+                        }
+                        else
+                        {
+                            hitCollider.gameObject.GetComponent<EnemyBehaviour>().setHealth((int)(hitCollider.gameObject.GetComponent<EnemyBehaviour>().health - damage * StatsHolder.attackMultiplier * StatsHolder.attackRangedMultiplier));
+                        }
 
-                    GameObject temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                    reloadCounter = 0f;
+                        GameObject temp = Instantiate(bullet, transform.position, Quaternion.identity);
+                        reloadCounter = 0f;
+                    }
                 }
             }
+            reloadCounter += Time.deltaTime;
         }
-        reloadCounter += Time.deltaTime;
-    }
+    } 
 }

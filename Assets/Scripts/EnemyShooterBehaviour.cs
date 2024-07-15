@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyShooterBehaviour : EnemyBehaviour
 {
     private bool canShoot;
-    private float reloadTime;
+    [SerializeField] private float reloadTime;
     private float reloadCounter;
     [SerializeField] private int damage;
     public GameObject laser;
@@ -14,7 +14,6 @@ public class EnemyShooterBehaviour : EnemyBehaviour
     {
         enemySetup();
         canShoot = false;
-        reloadTime = 5f;
         reloadCounter = 0f;
     }
 

@@ -63,8 +63,18 @@ public class BuildingCollision : MonoBehaviour
         Transform parent = building.transform;
         foreach (Transform child in parent)
         {
-            Renderer tempRenderer = child.GetComponent<Renderer>();
-            tempRenderer.material.color = Color.green;
+            if(child.GetComponent<Renderer>() == null)
+            {
+                foreach(Transform grandson in child)
+                {
+                    Renderer tempRenderer1 = grandson.GetComponent<Renderer>();
+                    tempRenderer1.material.color = Color.green;
+                }
+            } else
+            {
+                Renderer tempRenderer = child.GetComponent<Renderer>();
+                tempRenderer.material.color = Color.green;
+            }
         }
     }
     private void colorRed(GameObject building)
@@ -90,7 +100,7 @@ public class BuildingCollision : MonoBehaviour
             sphere.transform.position = transform.position;
             sphere.transform.parent = gameObject.transform;
             renderer.material = sphereColor;
-            sphere.transform.localScale = new Vector3(range * 2, range * 2, range * 2);
+            sphere.transform.localScale = new Vector3(range, range, range);
             spherePlaced = true;
         }
     }

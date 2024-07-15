@@ -34,19 +34,22 @@ public class BulletScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        enemyPos = enemyTarget.GetComponent<EnemyBehaviour>().getPosition();
-        Vector3 currPos = transform.position;
-        if(Vector3.Distance(currPos, enemyPos.position) <= 0.5f)
+        if(enemyTarget != null)
         {
-            Destroy(gameObject);
-        }
-        Vector3 direction = enemyPos.position - currPos;
-        direction.Normalize();
-        rb.MovePosition(currPos + (speed * Time.fixedDeltaTime * direction));
-        counter += Time.deltaTime;
-        if (counter > lifetime)
-        {
-            Destroy(gameObject);
+            enemyPos = enemyTarget.GetComponent<EnemyBehaviour>().getPosition();
+            Vector3 currPos = transform.position;
+            if (Vector3.Distance(currPos, enemyPos.position) <= 0.5f)
+            {
+                Destroy(gameObject);
+            }
+            Vector3 direction = enemyPos.position - currPos;
+            direction.Normalize();
+            rb.MovePosition(currPos + (speed * Time.fixedDeltaTime * direction));
+            counter += Time.deltaTime;
+            if (counter > lifetime)
+            {
+                Destroy(gameObject);
+            }
         }
     }
     void OnTriggerEnter(Collider other)

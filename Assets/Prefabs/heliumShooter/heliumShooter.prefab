@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6487249038531255514}
   - component: {fileID: 5120650144127799065}
   - component: {fileID: 1952517831812047786}
+  - component: {fileID: 5883795577548643252}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -184,6 +185,23 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 07e706fed414e47abbd6cd1ec3bc5f8f, type: 2}
+--- !u!114 &5883795577548643252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3577825678252254574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa0923dccbb9493e99aa99a1944cd95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 5028956376813143735, guid: cf1b35b822e3447dea43ee599770c756, type: 3}
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  forShow: 0
 --- !u!1 &4287993245133193887
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,8 +214,8 @@ GameObject:
   - component: {fileID: 376330703505841873}
   - component: {fileID: 3389227816523307006}
   - component: {fileID: -2183080049602165305}
-  - component: {fileID: 4806379715731673004}
   - component: {fileID: -3357871726960435052}
+  - component: {fileID: -552987898887972456}
   m_Layer: 0
   m_Name: heliumShooter
   m_TagString: Untagged
@@ -290,22 +308,7 @@ MonoBehaviour:
   range: 15
   sphere: {fileID: 0}
   upgradeState: 1
---- !u!114 &4806379715731673004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4287993245133193887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfa0923dccbb9493e99aa99a1944cd95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 5028956376813143735, guid: cf1b35b822e3447dea43ee599770c756, type: 3}
-  hitLayers:
-    serializedVersion: 2
-    m_Bits: 1
+  sun: {fileID: 0}
 --- !u!95 &-3357871726960435052
 Animator:
   serializedVersion: 5
@@ -327,6 +330,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-552987898887972456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287993245133193887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa0923dccbb9493e99aa99a1944cd95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 0}
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  forShow: 1
 --- !u!1 &4625784001232714642
 GameObject:
   m_ObjectHideFlags: 0

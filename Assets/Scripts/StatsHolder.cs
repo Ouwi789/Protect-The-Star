@@ -8,12 +8,21 @@ public class StatsHolder : MonoBehaviour
     public TMP_Text hydrogenCount;
     public TMP_Text heliumCount;
     public int hydrogenAmount = 20;
-    public int heliumAmount = 20;
+    public int heliumAmount = 2000;
 
     //Tower Objects
     public GameObject heliumTurret1;
     public GameObject heliumTurret2;
+    public GameObject heliumTurret3;
+    public GameObject heliumTurret4;
+    public GameObject heliumTurret5;
+
     public GameObject hydrogenTurret1;
+    public GameObject hydrogenTurret2;
+    public GameObject hydrogenTurret3;
+    public GameObject hydrogenTurret4;
+    public GameObject hydrogenTurret5;
+
     public GameObject heliumGen1;
     public GameObject hydroGen1;
     public GameObject hydroPlat1;
@@ -64,27 +73,111 @@ public class StatsHolder : MonoBehaviour
         //helium turret 2
         stats = new()
         {
-            ["damage"] = 8,
+            ["damage"] = 14,
             ["range"] = 40f,
-            ["cooldown"] = 3.5f,
+            ["cooldown"] = 4f,
             ["cost"] = 10,
             ["object"] = heliumTurret2,
             ["currency"] = "he",
-            ["upgrade"] = "MAX" //wont' be final evolution, just for testing (same with other towers)
+            ["upgrade"] = "Helium Turret 3"
         };
         buidlings.Add("Helium Turret 2", stats);
+        //helium turret 3
+        stats = new()
+        {
+            ["damage"] = 30,
+            ["range"] = 45f,
+            ["cooldown"] = 3f,
+            ["cost"] = 20,
+            ["object"] = heliumTurret3,
+            ["currency"] = "he",
+            ["upgrade"] = "Helium Turret 4"
+        };
+        buidlings.Add("Helium Turret 3", stats);
+        //helium turret 4
+        stats = new()
+        {
+            ["damage"] = 48,
+            ["range"] = 50f,
+            ["cooldown"] = 2f,
+            ["cost"] = 40,
+            ["object"] = heliumTurret4,
+            ["currency"] = "he",
+            ["upgrade"] = "Helium Turret 5"
+        };
+        buidlings.Add("Helium Turret 4", stats);
+        //final helium turret
+        stats = new()
+        {
+            ["damage"] = 80,
+            ["range"] = 55f,
+            ["cooldown"] = 1f,
+            ["cost"] = 80,
+            ["object"] = heliumTurret5,
+            ["currency"] = "he",
+            ["upgrade"] = "MAX"
+        };
+        buidlings.Add("Helium Turret 5", stats);
         //hydrogen turret
         stats = new()
         {
             ["damage"] = 10,
-            ["range"] = 50f,
+            ["range"] = 55f,
             ["cooldown"] = 8f,
             ["cost"] = 6,
             ["object"] = hydrogenTurret1,
             ["currency"] = "h",
-            ["upgrade"] = "MAX"
+            ["upgrade"] = "Hydrogen Turret 2"
         };
         buidlings.Add("Hydrogen Turret", stats);
+        //hydrogen turret 2
+        stats = new()
+        {
+            ["damage"] = 28,
+            ["range"] = 65f,
+            ["cooldown"] = 8f,
+            ["cost"] = 20,
+            ["object"] = hydrogenTurret2,
+            ["currency"] = "h",
+            ["upgrade"] = "Hydrogen Turret 3"
+        };
+        buidlings.Add("Hydrogen Turret 2", stats);
+        //hydrogen turret 3
+        stats = new()
+        {
+            ["damage"] = 48,
+            ["range"] = 70f,
+            ["cooldown"] = 6f,
+            ["cost"] = 30,
+            ["object"] = hydrogenTurret3,
+            ["currency"] = "h",
+            ["upgrade"] = "Hydrogen Turret 4"
+        };
+        buidlings.Add("Hydrogen Turret 3", stats);
+        //hydrogen turret 4
+        stats = new()
+        {
+            ["damage"] = 80,
+            ["range"] = 80f,
+            ["cooldown"] = 5f,
+            ["cost"] = 50,
+            ["object"] = hydrogenTurret4,
+            ["currency"] = "h",
+            ["upgrade"] = "Hydrogen Turret 5"
+        };
+        buidlings.Add("Hydrogen Turret 4", stats);
+        //final hydrogen turret
+        stats = new()
+        {
+            ["damage"] = 140,
+            ["range"] = 100f,
+            ["cooldown"] = 4.5f,
+            ["cost"] = 100,
+            ["object"] = hydrogenTurret5,
+            ["currency"] = "h",
+            ["upgrade"] = "MAX"
+        };
+        buidlings.Add("Hydrogen Turret 5", stats);
         //hydrogen
         stats = new()
         {
