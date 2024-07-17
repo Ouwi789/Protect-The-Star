@@ -39,9 +39,19 @@ public class BuildingSelection : MonoBehaviour
 
     //building icons
     public Sprite turret;
+    public Sprite turret2;
+    public Sprite turret3;
+    public Sprite turret4;
+    public Sprite turret5;
+
     public Sprite hydrogen;
     public Sprite helium;
+
     public Sprite hydrogenTurret;
+    public Sprite hydrogenTurret2;
+    public Sprite hydrogenTurret3;
+    public Sprite hydrogenTurret4;
+    public Sprite hydrogenTurret5;
 
     private BuildingCollision sphereScript;
     private GameObject selected;
@@ -174,11 +184,28 @@ public class BuildingSelection : MonoBehaviour
     void ToggleStats(GameObject building)
     {
         string name = GetBuildingName(building);
+
         if(building.GetComponent<TurretShooting>() != null)
         {
             atkImage.sprite = atkIcon;
-            buildingImage.sprite = turret;
-            
+            switch (building.GetComponent<BuildingCollision>().upgradeState)
+            {
+                case 1:
+                    buildingImage.sprite = turret;
+                    break;
+                case 2:
+                    buildingImage.sprite = turret2;
+                    break;
+                case 3:
+                    buildingImage.sprite = turret3;
+                    break;
+                case 4:
+                    buildingImage.sprite = turret4;
+                    break;
+                case 5:
+                    buildingImage.sprite = turret5;
+                    break;
+            }
         }
         if (building.GetComponent<HydroGenProduction>() != null)
         {
@@ -193,7 +220,24 @@ public class BuildingSelection : MonoBehaviour
         if (building.GetComponent<HydrogenTurretShooting>() != null)
         {
             atkImage.sprite = atkIcon;
-            buildingImage.sprite = hydrogenTurret;
+            switch (building.GetComponent<BuildingCollision>().upgradeState)
+            {
+                case 1:
+                    buildingImage.sprite = hydrogenTurret;
+                    break;
+                case 2:
+                    buildingImage.sprite = hydrogenTurret2;
+                    break;
+                case 3:
+                    buildingImage.sprite = hydrogenTurret3;
+                    break;
+                case 4:
+                    buildingImage.sprite = hydrogenTurret4;
+                    break;
+                case 5:
+                    buildingImage.sprite = hydrogenTurret5;
+                    break;
+            }
         }
         if(stats.buidlings[name]["upgrade"].ToString() == "MAX") {
             upgradeText.SetText("Upgrade: MAX");
@@ -204,6 +248,13 @@ public class BuildingSelection : MonoBehaviour
         {
             string upgradedName = stats.buidlings[name]["upgrade"].ToString();
             int upgradeCost = (int) stats.buidlings[upgradedName]["cost"];
+            if(building.GetComponent<HydroGenProduction>() != null || building.GetComponent<HydrogenTurretShooting>() != null)
+            {
+                upgradeCost *= (int) StatsHolder.hydrogenDiscount;
+            } else
+            {
+                upgradeCost *= (int) StatsHolder.heliumDiscount;
+            }
             upgradeText.SetText("Upgrade: " + upgradeCost);
             atkText.SetText(stats.buidlings[name]["damage"].ToString() + " -> " + stats.buidlings[upgradedName]["damage"].ToString());
             cooldownText.SetText(stats.buidlings[name]["cooldown"].ToString() + " -> " + stats.buidlings[upgradedName]["cooldown"].ToString());
@@ -224,13 +275,16 @@ public class BuildingSelection : MonoBehaviour
     {
         string name = GetBuildingName(selected);
         string upgradedName = stats.buidlings[name]["upgrade"].ToString();
-        if (upgradedName != "MAX" && checkUpgradeCostAndPay(upgradedName)) //TODO add currency for cost so we know 
+        if (upgradedName != "MAX" && StatsHolder.boughtOrNotTowers[upgradedName])
         {
-            GameObject upgradedBuilding = (GameObject) stats.buidlings[upgradedName]["object"];
-            GameObject temp = Instantiate(upgradedBuilding, selected.transform.position, selected.transform.rotation);
-            temp.tag = "Building"; ;
-            temp.GetComponent<BuildingCollision>().upgradeState = selected.GetComponent<BuildingCollision>().upgradeState + 1;
-            Destroy(selected);
+            if (checkUpgradeCostAndPay(upgradedName))
+            {
+                GameObject upgradedBuilding = (GameObject)stats.buidlings[upgradedName]["object"];
+                GameObject temp = Instantiate(upgradedBuilding, selected.transform.position, selected.transform.rotation);
+                temp.tag = "Building"; ;
+                temp.GetComponent<BuildingCollision>().upgradeState = selected.GetComponent<BuildingCollision>().upgradeState + 1;
+                Destroy(selected);
+            }
         }
         buildingStats.SetActive(false);
         sphereScript.DeleteSphere();
@@ -248,6 +302,14 @@ public class BuildingSelection : MonoBehaviour
     private bool checkUpgradeCostAndPay(string upgradedName)
     {
         int upgradeCost = (int)stats.buidlings[upgradedName]["cost"];
+        if (selected.GetComponent<HydroGenProduction>() != null || selected.GetComponent<HydrogenTurretShooting>() != null)
+        {
+            upgradeCost *= (int) StatsHolder.hydrogenDiscount;
+        }
+        else
+        {
+            upgradeCost *= (int) StatsHolder.heliumDiscount;
+        }
         if (stats.buidlings[upgradedName]["currency"].ToString() == "h")
         {
             if (stats.getHydrogen() >= upgradeCost)

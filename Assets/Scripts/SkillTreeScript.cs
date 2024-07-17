@@ -17,17 +17,13 @@ public class SkillTreeScript : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField] string type;
     [SerializeField] string description;
     [SerializeField] int cost; //upgrades (not tower ones) are always in XP
-    private static bool locked = true;
-    private static bool added = false;
 
-    private static Dictionary<string, bool> boughtOrNot = new Dictionary<string, bool>();
     // Start is called before the first frame update
     private void Awake()
     {
-        if(!added)
+        if (!StatsHolder.boughtOrNotUpgrades.ContainsKey(type + " " + tier))
         {
-            boughtOrNot.Add(type + " " + tier, false);
-            added = true;
+            StatsHolder.boughtOrNotUpgrades.Add(type + " " + tier, false);
         }
     }
     void Start()
@@ -47,12 +43,12 @@ public class SkillTreeScript : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
         infoHeading.SetText(type + " " + temptier);
         infoDescription.SetText(description);
-        if(locked)
-        {
-            lockedText.SetText("(Locked, " + cost + "XP)");
-        } else
+        if(StatsHolder.boughtOrNotUpgrades[type + " " + tier])
         {
             lockedText.SetText("(Unlocked)");
+        } else
+        {
+            lockedText.SetText("(Locked, " + cost + "XP)");
         }
     }
     public void OnPointerExit(PointerEventData eventData)
@@ -69,38 +65,36 @@ public class SkillTreeScript : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             if (type.Equals("Helium") || type.Equals("Hydrogen"))
             {
-                return boughtOrNot["Farming 2"];
+                return StatsHolder.boughtOrNotUpgrades["Farming 2"];
             }
             else if (type.Equals("Melee") || type.Equals("Ranged"))
             {
-                return boughtOrNot["Damage 2"];
+                return StatsHolder.boughtOrNotUpgrades["Damage 2"];
             }
             else if (type.Equals("XP") || type.Equals("Coins"))
             {
-                return boughtOrNot["Rewards 3"];
+                return StatsHolder.boughtOrNotUpgrades["Rewards 3"];
             }
             else if (type.Equals("Regeneration") || type.Equals("Defence"))
             {
-                return boughtOrNot["Health 3"];
+                return StatsHolder.boughtOrNotUpgrades["Health 3"];
             } else if(type.Equals("Damage") || type.Equals("Farming") || type.Equals("Rewards") || type.Equals("Health"))
             {
-                return boughtOrNot["Base 0"];
+                return StatsHolder.boughtOrNotUpgrades["Base 0"];
             }
         } else
         {
             int temp = tier - 1;
-            return boughtOrNot[type + " " + temp];
+            return StatsHolder.boughtOrNotUpgrades[type + " " + temp];
         }
         return false;
     }
     public void PurchaseUpgrade()
     {
-        if(StatsHolder.xp >= cost && locked && IfParentPurchased())
+        if(StatsHolder.xp >= cost && !StatsHolder.boughtOrNotUpgrades[type + " " + tier] && IfParentPurchased())
         {
             StatsHolder.xp -= cost;
-            //TODO change the stats as well
-            locked = false;
-            boughtOrNot[type + " " + tier] = true;
+            StatsHolder.boughtOrNotUpgrades[type + " " + tier] = true;
             GetComponent<Image>().sprite = unlockedVer;
             StartCoroutine(Purchase());
             switch (type)
@@ -151,21 +145,21 @@ public class SkillTreeScript : MonoBehaviour, IPointerEnterHandler, IPointerExit
                 case "Hydrogen":
                     if (tier == 1)
                     {
-                        StatsHolder.hydrogenDiscount = 1;
+                        StatsHolder.hydrogenDiscount = 0.8f;
                     }
                     else if (tier == 2)
                     {
-                        StatsHolder.hydrogenDiscount = 2;
+                        StatsHolder.hydrogenDiscount = 0.6f;
                     }
                     break;
                 case "Helium":
                     if (tier == 1)
                     {
-                        StatsHolder.heliumDiscount = 1;
+                        StatsHolder.heliumDiscount = 0.8f;
                     }
                     else if (tier == 2)
                     {
-                        StatsHolder.heliumDiscount = 2;
+                        StatsHolder.heliumDiscount = 0.6f;
                     }
                     break;
                 case "Rewards": //xp & coins

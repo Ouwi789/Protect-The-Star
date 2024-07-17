@@ -57,7 +57,7 @@ public class EnemySatelliteBehaviour : EnemyBehaviour
     public override void Attack()
     {
         enemyAnimator.Play("Shoot");
-        healthScript.setHealth(healthScript.getHealth() - (damage*(StatsHolder.defence / 200)));
+        healthScript.setHealth(healthScript.getHealth() - (damage*((400 - StatsHolder.defence) / 400)));
     }
     private void Shoot()
     {

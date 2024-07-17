@@ -12,6 +12,8 @@ public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public GameObject upgradesMenu;
     public GameObject towersMenu;
     public GameObject storyMenu;
+    public GameObject tutorialMenu;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (gameObject.tag == "Upgrades")
@@ -21,6 +23,9 @@ public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         else if (gameObject.tag == "Towers")
         {
             helperText.SetText("Tower Upgrades :)");
+        } else if (gameObject.tag == "Tutorial")
+        {
+            helperText.SetText("For the Newbies :)");
         }
     }
     public void OnPointerExit(PointerEventData eventData)
@@ -33,6 +38,10 @@ public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void SwitchToUpgrades()
     {
         StartCoroutine(UpgradesMenu());
+    }
+    public void SwitchToTutorial()
+    {
+        StartCoroutine(TutorialMenu());
     }
     public void SwitchToTowers()
     {
@@ -64,6 +73,17 @@ public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         crossfadeTransition.SetBool("Start", false);
         yield return new WaitForSeconds(1f);
     }
+    IEnumerator TutorialMenu()
+    {
+        crossfadeTransition.SetBool("End", false);
+        crossfadeTransition.SetBool("Start", true);
+        yield return new WaitForSeconds(1f);
+        startMenu.SetActive(false);
+        tutorialMenu.SetActive(true);
+        crossfadeTransition.SetBool("End", true);
+        crossfadeTransition.SetBool("Start", false);
+        yield return new WaitForSeconds(1f);
+    }
     IEnumerator HomeMenu()
     {
         crossfadeTransition.SetBool("End", false);
@@ -72,7 +92,8 @@ public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         startMenu.SetActive(true);
         storyMenu.SetActive(false);
         upgradesMenu.SetActive(false);
-        // towersMenu.SetActive(false);
+        towersMenu.SetActive(false);
+        tutorialMenu.SetActive(false);
         crossfadeTransition.SetBool("End", true);
         crossfadeTransition.SetBool("Start", false);
         yield return new WaitForSeconds(1f);

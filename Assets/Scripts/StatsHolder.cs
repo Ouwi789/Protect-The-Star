@@ -8,7 +8,13 @@ public class StatsHolder : MonoBehaviour
     public TMP_Text hydrogenCount;
     public TMP_Text heliumCount;
     public int hydrogenAmount = 20;
-    public int heliumAmount = 2000;
+    public int heliumAmount = 20;
+
+    //boss healthbar
+    public GameObject bossInfo;
+    public TMP_Text bossHeading;
+    public TMP_Text bossHealthText;
+    public RectTransform bossHealthBarTransform;
 
     //Tower Objects
     public GameObject heliumTurret1;
@@ -29,8 +35,8 @@ public class StatsHolder : MonoBehaviour
     public GameObject heliumPlat1;
 
     //Items
-    public static int xp = 200;
-    public static int coins = 200;
+    public static int xp = 0;
+    public static int coins = 0;
 
     //Upgrades
     public static float attackMultiplier = 1;
@@ -47,13 +53,15 @@ public class StatsHolder : MonoBehaviour
     public static int hydrogenGain = 0;
     public static int heliumGain = 0;
 
-    public static int hydrogenDiscount = 0;
-    public static int heliumDiscount = 0;
+    public static float hydrogenDiscount = 1;
+    public static float heliumDiscount = 1;
 
     //Tower and Reward Mapping
     public Dictionary<string, Dictionary<string, object>> buidlings = new();
     public static Dictionary<int, Dictionary<string, int>> rewardsForEachLevel = new();
     private static bool rewardsMapped = false;
+    public static Dictionary<string, bool> boughtOrNotUpgrades = new();
+    public static Dictionary<string, bool> boughtOrNotTowers = new();
 
     private void Awake()
     {

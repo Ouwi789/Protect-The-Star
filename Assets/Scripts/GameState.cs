@@ -38,7 +38,15 @@ public class GameState : MonoBehaviour
     void UpdateHealthBar()
     {
         float healthPercent = (float) health / maxHealth;
-        Vector3 scale = new Vector3(healthPercent, 1, 1);
+        Vector3 scale;
+        if(healthPercent >= 0)
+        {
+            scale = new Vector3(healthPercent, 1, 1);
+        } else
+        {
+            scale = new Vector3(healthPercent, 0, 1);
+        }
+        
         healthBarTransform.localScale = scale;
 
         healthText.SetText(health.ToString() + " / " + maxHealth.ToString());

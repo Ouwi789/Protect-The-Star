@@ -58,7 +58,7 @@ public class EnemyShooterBehaviour : EnemyBehaviour
     public override void Attack()
     {
         StartCoroutine(AttackAnimation());
-        healthScript.setHealth(healthScript.getHealth() - (damage * (StatsHolder.defence / 200)));
+        healthScript.setHealth(healthScript.getHealth() - (damage * ((400 - StatsHolder.defence) / 400)));
     }
     private IEnumerator AttackAnimation()
     {

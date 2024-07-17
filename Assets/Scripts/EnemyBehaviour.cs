@@ -28,6 +28,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
 
     public virtual void enemySetup()
     {
+        print(maxHealth);
         health = maxHealth;
         rb = GetComponent<Rigidbody>();
         gameController = GameObject.FindGameObjectWithTag("GameController");
@@ -35,7 +36,6 @@ public abstract class EnemyBehaviour : MonoBehaviour
         targetPosition = sun.transform.position;
         healthScript = gameController.GetComponent<GameState>();
         healthCanvas = gameObject.GetComponentInChildren<HealthBar>();
-        healthCanvas.updateHealthBar(maxHealth, health);
     }
 
 
@@ -80,6 +80,6 @@ public abstract class EnemyBehaviour : MonoBehaviour
     //defual attack is kamikaze
     public virtual void Attack()
     {
-        healthScript.setHealth(healthScript.getHealth() - (health * (StatsHolder.defence/200)));
+        healthScript.setHealth(healthScript.getHealth() - (health * ((400 - StatsHolder.defence)/400)));
     }
 }
