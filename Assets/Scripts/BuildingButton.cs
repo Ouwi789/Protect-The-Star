@@ -271,7 +271,6 @@ public class BuildingButton : MonoBehaviour
     {
         if (checkCanPlace() && stats.getHelium() >= (stats.getCost("Helium Turret") * StatsHolder.heliumDiscount))
         {
-            cancelText.SetActive(true);
             turretPlacing = true;
         }
     }
@@ -279,7 +278,6 @@ public class BuildingButton : MonoBehaviour
     {
         if (checkCanPlace() && stats.getHydrogen() >= (stats.getCost("Hydrogen Turret") * StatsHolder.hydrogenDiscount))
         {
-            cancelText.SetActive(true);
             hydrogenTurretPlacing = true;
         }
     }
@@ -288,7 +286,6 @@ public class BuildingButton : MonoBehaviour
     {
         if (checkCanPlace() && stats.getHydrogen() >= (stats.getCost("Hydrogen Generator") * StatsHolder.hydrogenDiscount))
         {
-            cancelText.SetActive(true);
             hydroGenPlacing = true;
         }
     }
@@ -297,7 +294,6 @@ public class BuildingButton : MonoBehaviour
     {
         if (checkCanPlace() && stats.getHelium() >= (stats.getCost("Helium Generator") * StatsHolder.heliumDiscount))
         {
-            cancelText.SetActive(true);
             heliumGenPlacing = true;
         }
     }
