@@ -58,20 +58,100 @@ public class StatsHolder : MonoBehaviour
 
     //Tower and Reward Mapping
     public Dictionary<string, Dictionary<string, object>> buidlings = new();
-    public static Dictionary<int, Dictionary<string, int>> rewardsForEachLevel = new();
-    private static bool rewardsMapped = false;
-    public static Dictionary<string, bool> boughtOrNotUpgrades = new();
-    public static Dictionary<string, bool> boughtOrNotTowers = new();
+    public static Dictionary<int, Dictionary<string, int>> rewardsForEachLevel;
+    public static Dictionary<string, bool> boughtOrNotUpgrades;
+    public static Dictionary<string, bool> boughtOrNotTowers;
+    public static Dictionary<int, bool> levelCompleted;
 
     private void Awake()
     {
+        if(boughtOrNotUpgrades == null)
+        {
+            boughtOrNotUpgrades = new();
+        }
+        if(boughtOrNotTowers == null)
+        {
+            boughtOrNotTowers = new();
+        }
+        if(levelCompleted == null)
+        {
+            levelCompleted = new();
+        }
+        if(rewardsForEachLevel == null)
+        {
+            rewardsForEachLevel = new();
+            Dictionary<string, int> tempLevel = new()
+            {
+                ["xp"] = 5,
+                ["coins"] = 5
+            };
+            //infinte not included here
+            rewardsForEachLevel.Add(1, tempLevel);
+            //TODO add appropriate rewards to each story level so that the game is balanced
+            tempLevel = new()
+            {
+                ["xp"] = 10,
+                ["coins"] = 10
+            };
+            rewardsForEachLevel.Add(2, tempLevel);
+            tempLevel = new()
+            {
+                ["xp"] = 15,
+                ["coins"] = 15
+            };
+            rewardsForEachLevel.Add(3, tempLevel);
+            tempLevel = new()
+            {
+                ["xp"] = 20,
+                ["coins"] = 20
+            };
+            rewardsForEachLevel.Add(4, tempLevel);
+            tempLevel = new()
+            {
+                ["xp"] = 30,
+                ["coins"] = 30
+            };
+            rewardsForEachLevel.Add(5, tempLevel);
+            tempLevel = new()
+            {
+                ["xp"] = 40,
+                ["coins"] = 40
+            };
+            rewardsForEachLevel.Add(6, tempLevel);
+            tempLevel = new()
+            {
+                ["xp"] = 60,
+                ["coins"] = 60
+            };
+            rewardsForEachLevel.Add(7, tempLevel);
+            tempLevel = new()
+            {
+                ["xp"] = 70,
+                ["coins"] = 70
+            };
+            rewardsForEachLevel.Add(8, tempLevel);
+            tempLevel = new()
+            {
+                ["xp"] = 85,
+                ["coins"] = 85
+            };
+            rewardsForEachLevel.Add(9, tempLevel);
+            tempLevel = new()
+            {
+                ["xp"] = 100,
+                ["coins"] = 100
+            };
+            rewardsForEachLevel.Add(10, tempLevel);
+        }
+
+
         //damage is also production and generation for generators
         //helium turret
         Dictionary<string, object> stats = new()
         {
-            ["damage"] = 5,
+            ["damage"] = 8,
             ["range"] = 35f,
-            ["cooldown"] = 5f,
+            ["cooldown"] = 4f,
             ["cost"] = 5,
             ["object"] = heliumTurret1,
             ["currency"] = "he",
@@ -81,9 +161,9 @@ public class StatsHolder : MonoBehaviour
         //helium turret 2
         stats = new()
         {
-            ["damage"] = 14,
+            ["damage"] = 16,
             ["range"] = 40f,
-            ["cooldown"] = 4f,
+            ["cooldown"] = 3f,
             ["cost"] = 10,
             ["object"] = heliumTurret2,
             ["currency"] = "he",
@@ -93,9 +173,9 @@ public class StatsHolder : MonoBehaviour
         //helium turret 3
         stats = new()
         {
-            ["damage"] = 30,
+            ["damage"] = 48,
             ["range"] = 45f,
-            ["cooldown"] = 3f,
+            ["cooldown"] = 2f,
             ["cost"] = 20,
             ["object"] = heliumTurret3,
             ["currency"] = "he",
@@ -105,9 +185,9 @@ public class StatsHolder : MonoBehaviour
         //helium turret 4
         stats = new()
         {
-            ["damage"] = 48,
-            ["range"] = 50f,
-            ["cooldown"] = 2f,
+            ["damage"] = 64,
+            ["range"] = 70f,
+            ["cooldown"] = 1.5f,
             ["cost"] = 40,
             ["object"] = heliumTurret4,
             ["currency"] = "he",
@@ -118,7 +198,7 @@ public class StatsHolder : MonoBehaviour
         stats = new()
         {
             ["damage"] = 80,
-            ["range"] = 55f,
+            ["range"] = 100f,
             ["cooldown"] = 1f,
             ["cost"] = 80,
             ["object"] = heliumTurret5,
@@ -129,9 +209,9 @@ public class StatsHolder : MonoBehaviour
         //hydrogen turret
         stats = new()
         {
-            ["damage"] = 10,
-            ["range"] = 55f,
-            ["cooldown"] = 8f,
+            ["damage"] = 16,
+            ["range"] = 60f,
+            ["cooldown"] = 6f,
             ["cost"] = 6,
             ["object"] = hydrogenTurret1,
             ["currency"] = "h",
@@ -141,9 +221,9 @@ public class StatsHolder : MonoBehaviour
         //hydrogen turret 2
         stats = new()
         {
-            ["damage"] = 28,
-            ["range"] = 65f,
-            ["cooldown"] = 8f,
+            ["damage"] = 48,
+            ["range"] = 70f,
+            ["cooldown"] = 5.5f,
             ["cost"] = 20,
             ["object"] = hydrogenTurret2,
             ["currency"] = "h",
@@ -153,9 +233,9 @@ public class StatsHolder : MonoBehaviour
         //hydrogen turret 3
         stats = new()
         {
-            ["damage"] = 48,
-            ["range"] = 70f,
-            ["cooldown"] = 6f,
+            ["damage"] = 96,
+            ["range"] = 90f,
+            ["cooldown"] = 5f,
             ["cost"] = 30,
             ["object"] = hydrogenTurret3,
             ["currency"] = "h",
@@ -165,9 +245,9 @@ public class StatsHolder : MonoBehaviour
         //hydrogen turret 4
         stats = new()
         {
-            ["damage"] = 80,
-            ["range"] = 80f,
-            ["cooldown"] = 5f,
+            ["damage"] = 192,
+            ["range"] = 110f,
+            ["cooldown"] = 4.5f,
             ["cost"] = 50,
             ["object"] = hydrogenTurret4,
             ["currency"] = "h",
@@ -177,9 +257,9 @@ public class StatsHolder : MonoBehaviour
         //final hydrogen turret
         stats = new()
         {
-            ["damage"] = 140,
-            ["range"] = 100f,
-            ["cooldown"] = 4.5f,
+            ["damage"] = 400,
+            ["range"] = 150f,
+            ["cooldown"] = 4f,
             ["cost"] = 100,
             ["object"] = hydrogenTurret5,
             ["currency"] = "h",
@@ -189,10 +269,10 @@ public class StatsHolder : MonoBehaviour
         //hydrogen
         stats = new()
         {
-            ["damage"] = 2,
+            ["damage"] = 1,
             ["range"] = 5f,
-            ["cooldown"] = 5f,
-            ["cost"] = 5,
+            ["cooldown"] = 2f,
+            ["cost"] = 10,
             ["object"] = hydroGen1,
             ["currency"] = "h",
             ["upgrade"] = "MAX"
@@ -201,10 +281,10 @@ public class StatsHolder : MonoBehaviour
         //helium
         stats = new()
         {
-            ["damage"] = 2,
+            ["damage"] = 1,
             ["range"] = 5f,
-            ["cooldown"] = 5f,
-            ["cost"] = 5,
+            ["cooldown"] = 2f,
+            ["cost"] = 10,
             ["object"] = heliumGen1,
             ["currency"] = "he",
             ["upgrade"] = "MAX"
@@ -234,35 +314,16 @@ public class StatsHolder : MonoBehaviour
             ["upgrade"] = "MAX"
         };
         buidlings.Add("Helium Platform", stats);
-        Dictionary<string, int> tempLevel = new()
-        {
-            ["xp"] = 5,
-            ["coins"] = 5
-        };
-        if(!rewardsMapped)
-        {
-            //-1 is tutorial and 0 is infinite
-            rewardsForEachLevel.Add(-1, tempLevel);
-            rewardsForEachLevel.Add(0, tempLevel);
-            rewardsForEachLevel.Add(1, tempLevel);
-            //TODO add appropriate rewards to each story level so that the game is balanced
-            rewardsForEachLevel.Add(2, tempLevel);
-            rewardsForEachLevel.Add(3, tempLevel);
-            rewardsForEachLevel.Add(4, tempLevel);
-            rewardsForEachLevel.Add(5, tempLevel);
-            rewardsForEachLevel.Add(6, tempLevel);
-            rewardsForEachLevel.Add(7, tempLevel);
-            rewardsForEachLevel.Add(8, tempLevel);
-            rewardsForEachLevel.Add(9, tempLevel);
-            rewardsForEachLevel.Add(10, tempLevel);
-            rewardsMapped = true;
-        }
+         
     }
 
     private void Update()
     {
-        hydrogenCount.SetText(hydrogenAmount.ToString());
-        heliumCount.SetText(heliumAmount.ToString());
+        if(hydrogenCount != null && heliumCount != null)
+        {
+            hydrogenCount.SetText(hydrogenAmount.ToString());
+            heliumCount.SetText(heliumAmount.ToString());
+        }
     }
     public int getHydrogen()
     {

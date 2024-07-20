@@ -18,6 +18,8 @@ public class GameState : MonoBehaviour
     private float maxHealth;
     public float health;
 
+    [SerializeField] Pause pause;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,10 @@ public class GameState : MonoBehaviour
         if(health <= 0)
         {
             StartCoroutine(EndGame());
+        }
+        if (pause.exit)
+        {
+            StartCoroutine(ExitGame());
         }
     }
     void UpdateHealthBar()
@@ -65,6 +71,19 @@ public class GameState : MonoBehaviour
         crossfadeTransition.SetBool("Start", false);
         yield return null;
     }
+
+    public IEnumerator ExitGame()
+    {
+        wonLastGame = false;
+        yield return new WaitForSeconds(3f);
+        crossfadeTransition.SetBool("Start", true);
+        SceneManager.LoadScene("StartMenu");
+        yield return new WaitForSeconds(1f);
+        crossfadeTransition.SetBool("End", true);
+        crossfadeTransition.SetBool("Start", false);
+        yield return null;
+    }
+
     public void setHealth(float newHealth)
     {
         health = newHealth;

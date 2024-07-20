@@ -2083,7 +2083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPlace: 0
   sphereColor: {fileID: 2100000, guid: ea5a235ad727242e6a2700a73d9347d4, type: 2}
-  range: 100
+  range: 150
   sphere: {fileID: 0}
   upgradeState: 5
   sun: {fileID: 0}

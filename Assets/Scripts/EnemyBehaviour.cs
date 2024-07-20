@@ -28,7 +28,6 @@ public abstract class EnemyBehaviour : MonoBehaviour
 
     public virtual void enemySetup()
     {
-        print(maxHealth);
         health = maxHealth;
         rb = GetComponent<Rigidbody>();
         gameController = GameObject.FindGameObjectWithTag("GameController");

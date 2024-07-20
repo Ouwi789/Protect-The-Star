@@ -14,6 +14,25 @@ public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public GameObject storyMenu;
     public GameObject tutorialMenu;
 
+    private static bool notFirst;
+    private float counter;
+
+    private void Start()
+    {
+        notFirst = false;
+    }
+
+    private void Update()
+    {
+        if (!notFirst && counter >= 1f)
+        {
+            upgradesMenu.SetActive(false);
+            towersMenu.SetActive(false);
+            notFirst = true;
+        }
+        counter += Time.fixedDeltaTime;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (gameObject.tag == "Upgrades")
@@ -51,6 +70,9 @@ public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         StartCoroutine(HomeMenu());
     }
+
+    
+
     IEnumerator UpgradesMenu()
     {
         crossfadeTransition.SetBool("End", false);

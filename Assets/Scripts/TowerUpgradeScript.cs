@@ -18,25 +18,23 @@ public class TowerUpgradeScript : MonoBehaviour, IPointerEnterHandler, IPointerE
     [SerializeField] private int upgradeState;
 
     // Start is called before the first frame update
-    private void Awake()
+    void Start()
     {
+
         if (!StatsHolder.boughtOrNotTowers.ContainsKey(towerName + " " + upgradeState))
         {
-            if(upgradeState == 1)
+            if (upgradeState == 1)
             {
                 StatsHolder.boughtOrNotTowers.Add(towerName + " " + upgradeState, true);
-            } else
+            }
+            else
             {
                 string temp = towerName + " " + upgradeState;
                 StatsHolder.boughtOrNotTowers.Add(temp, false);
             }
-            
-        }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
+        }
+
         infoMenu = GameObject.FindGameObjectWithTag("TowerInfo");
         infoHeading = GameObject.FindGameObjectWithTag("TN").GetComponent<TMP_Text>();
         infoDescription = GameObject.FindGameObjectWithTag("TC").GetComponent<TMP_Text>();

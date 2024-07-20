@@ -25,7 +25,7 @@ public class SpawnEnemy : MonoBehaviour
 
     public GameState gameState;
     public static int storyLevel; //from 1 - 10, put 0 if its infinite mode
-    public int wave = 1; //will need to design an enemy spawn system
+    public static int wave = 1; //for infite mode
     private Transform[] spawnPositions;
     public TMP_Text waveText;
     public StatsHolder stats;
@@ -107,6 +107,7 @@ public class SpawnEnemy : MonoBehaviour
                     yield return waitWaveFinish();
                     yield return startWave();
                     level++;
+                    wave = level;
                 }
                 break;
             case 1:
@@ -155,7 +156,7 @@ public class SpawnEnemy : MonoBehaviour
                 waveText.SetText("Wave: 10");
                 spawnEnemies(5, defaultUFO, false);
                 spawnEnemies(1, boss1, true);
-                yield return waitWaveFinish();
+                yield return waitWaveFinish(); 
                 break;
             case 2:
                 waveText.SetText("Wave: 1");
@@ -664,7 +665,7 @@ public class SpawnEnemy : MonoBehaviour
     {
         while (!checkForNoEnemies())
         {
-            yield return wait(1);
+            yield return new WaitForSeconds(1);
         }
         yield return null;
     }

@@ -18,16 +18,14 @@ public class SkillTreeScript : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField] string description;
     [SerializeField] int cost; //upgrades (not tower ones) are always in XP
 
-    // Start is called before the first frame update
-    private void Awake()
+    void Start()
     {
+
         if (!StatsHolder.boughtOrNotUpgrades.ContainsKey(type + " " + tier))
         {
             StatsHolder.boughtOrNotUpgrades.Add(type + " " + tier, false);
         }
-    }
-    void Start()
-    {
+
         infoMenu = GameObject.FindGameObjectWithTag("Info");
         infoHeading = GameObject.FindGameObjectWithTag("InfoH").GetComponent<TMP_Text>();
         infoDescription = GameObject.FindGameObjectWithTag("InfoD").GetComponent<TMP_Text>();

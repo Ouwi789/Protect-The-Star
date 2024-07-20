@@ -8,6 +8,8 @@ public class BuildingButton : MonoBehaviour
 
     //TODO do not allow multiple turrets on platform, have a variable named 'occupied'
 
+    private int platformNum;
+
     //cancel text
     public GameObject cancelText;
     public GameObject costTextObject;
@@ -72,7 +74,7 @@ public class BuildingButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        platformNum = 0;
         centreOfSphere = sun.transform.position;
         //platforms
         hydrogenPlatformPlacing = false;
@@ -205,6 +207,7 @@ public class BuildingButton : MonoBehaviour
                 {
                     cancelText.SetActive(false);
                     GameObject temp = Instantiate(hydrogenPlatform, tempHydrogenPlatform.transform.position, tempHydrogenPlatform.transform.rotation);
+                    platformNum++;
                     stats.setHydrogen(stats.getHydrogen() - (int)(stats.getCost("Hydrogen Platform") * StatsHolder.hydrogenDiscount));
                     temp.tag = "Platform";
                     temp.GetComponent<PlatformBehaviour>().setToHydrogen(true);
@@ -236,6 +239,7 @@ public class BuildingButton : MonoBehaviour
                 {
                     cancelText.SetActive(false);
                     GameObject temp = Instantiate(heliumPlatform, tempHeliumPlatform.transform.position, tempHeliumPlatform.transform.rotation);
+                    platformNum++;
                     stats.setHelium(stats.getHelium() - (int)(stats.getCost("Helium Platform") * StatsHolder.heliumDiscount));
                     temp.tag = "Platform";
                     temp.GetComponent<PlatformBehaviour>().setToHydrogen(false);
@@ -250,7 +254,7 @@ public class BuildingButton : MonoBehaviour
 
     public void onHydrogenPlatClick()
     {
-        if (checkCanPlace() && stats.getHydrogen() >= (stats.getCost("Hydrogen Platform") * StatsHolder.hydrogenDiscount))
+        if (checkCanPlace() && stats.getHydrogen() >= (stats.getCost("Hydrogen Platform") * StatsHolder.hydrogenDiscount) && platformNum < 40)
         {
             cancelText.SetActive(true);
             hydrogenPlatformPlacing = true;
@@ -259,7 +263,7 @@ public class BuildingButton : MonoBehaviour
 
     public void onHeliumPlatClick()
     {
-        if (checkCanPlace() && stats.getHelium() >= (stats.getCost("Helium Platform") * StatsHolder.heliumDiscount))
+        if (checkCanPlace() && stats.getHelium() >= (stats.getCost("Helium Platform") * StatsHolder.heliumDiscount) && platformNum < 40)
         {
             cancelText.SetActive(true);
             heliumPlatformPlacing = true;

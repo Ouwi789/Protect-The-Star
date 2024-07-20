@@ -17,15 +17,25 @@ public class MenuScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         UpdateStats();
     }
 
+    private void Start()
+    {
+        if (GameState.wonLastGame)
+        {
+            StatsHolder.levelCompleted[SpawnEnemy.storyLevel] = true;
+            StatsHolder.xp += (int)(StatsHolder.rewardsForEachLevel[SpawnEnemy.storyLevel]["xp"] * StatsHolder.xpMultiplier);
+            StatsHolder.coins += (int)(StatsHolder.rewardsForEachLevel[SpawnEnemy.storyLevel]["coins"] * StatsHolder.coinMultiplier);
+            GameState.wonLastGame = false;
+        }
+        else if (SpawnEnemy.storyLevel == 0)
+        {
+            StatsHolder.xp += (int)(5 * (SpawnEnemy.wave / 5) * StatsHolder.xpMultiplier);
+            StatsHolder.coins += (int)(5 * (SpawnEnemy.wave / 5) * StatsHolder.coinMultiplier);
+        }
+    }
+
     public void Update()
     {
         UpdateStats();
-        if(GameState.wonLastGame)
-        {
-            StatsHolder.xp += (int) (StatsHolder.rewardsForEachLevel[SpawnEnemy.storyLevel]["xp"] * StatsHolder.xpMultiplier);
-            StatsHolder.coins += (int) (StatsHolder.rewardsForEachLevel[SpawnEnemy.storyLevel]["coins"] * StatsHolder.coinMultiplier);
-            GameState.wonLastGame = false;
-        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
