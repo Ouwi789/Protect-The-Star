@@ -6374,7 +6374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2d2fd407ee246978edcbeac9a76199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedVer: {fileID: 0}
+  unlockedVer: {fileID: 21300000, guid: a1d7e8711fa53403f956006c7c5d7b9f, type: 3}
   tier: 3
   type: Rewards
   description: +20% XP & Coins / game

@@ -24,6 +24,9 @@ public class SkillTreeScript : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (!StatsHolder.boughtOrNotUpgrades.ContainsKey(type + " " + tier))
         {
             StatsHolder.boughtOrNotUpgrades.Add(type + " " + tier, false);
+        } else if (StatsHolder.boughtOrNotUpgrades[type + " " + tier])
+        {
+            GetComponent<Image>().sprite = unlockedVer;
         }
 
         infoMenu = GameObject.FindGameObjectWithTag("Info");
@@ -225,11 +228,11 @@ public class SkillTreeScript : MonoBehaviour, IPointerEnterHandler, IPointerExit
                     }
                     else if (tier == 2)
                     {
-                        StatsHolder.health = 25;
+                        StatsHolder.regen = 25;
                     }
                     else if (tier == 3)
                     {
-                        StatsHolder.health = 50;
+                        StatsHolder.regen = 50;
                     }
                     break;
                 case "Defence":

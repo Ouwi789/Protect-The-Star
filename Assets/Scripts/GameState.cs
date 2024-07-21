@@ -44,13 +44,16 @@ public class GameState : MonoBehaviour
     void UpdateHealthBar()
     {
         float healthPercent = (float) health / maxHealth;
-        Vector3 scale;
-        if(healthPercent >= 0)
+        Vector3 scale = Vector3.zero;
+        if(healthPercent >= 0 && healthPercent <= 1)
         {
             scale = new Vector3(healthPercent, 1, 1);
-        } else
+        } else if (healthPercent < 0)
         {
-            scale = new Vector3(healthPercent, 0, 1);
+            scale = new Vector3(0, 1, 1);
+        } else if (healthPercent > 1)
+        {
+            scale = new Vector3(1, 1, 1);
         }
         
         healthBarTransform.localScale = scale;

@@ -25,13 +25,14 @@ public class SpawnEnemy : MonoBehaviour
 
     public GameState gameState;
     public static int storyLevel; //from 1 - 10, put 0 if its infinite mode
-    public static int wave = 1; //for infite mode
+    public static int wave; //for infite mode
     private Transform[] spawnPositions;
     public TMP_Text waveText;
     public StatsHolder stats;
 
     private void Start()
     {
+        wave = 1;
         spawnPositions = GetComponentsInChildren<Transform>();
         for(int i = 0; i < spawnPositions.Length; i++)
         {

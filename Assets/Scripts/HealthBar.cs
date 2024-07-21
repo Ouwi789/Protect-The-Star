@@ -22,12 +22,15 @@ public class HealthBar : MonoBehaviour
 
     public void updateHealthBar(float maxHealth, float health)
     {
-        if(health / maxHealth >= 0)
+        if(health / maxHealth >= 0 && health / maxHealth <= 1)
         {
             healthGreen.rectTransform.localScale = new Vector2(health / maxHealth, 1);
-        } else
+        } else if (health / maxHealth < 0)
         {
             healthGreen.rectTransform.localScale = new Vector2(0, 1);
+        } else if (health / maxHealth > 1)
+        {
+            healthGreen.rectTransform.localScale = new Vector2(1, 1);
         }
         healthText.SetText(health + "/" + maxHealth);
     }

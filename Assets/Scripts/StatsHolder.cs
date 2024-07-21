@@ -45,7 +45,7 @@ public class StatsHolder : MonoBehaviour
 
     public static int health = 100;
     public static int regen = 0;
-    public static int defence = 0;
+    public static float defence = 0;
 
     public static float coinMultiplier = 1;
     public static float xpMultiplier = 1;
